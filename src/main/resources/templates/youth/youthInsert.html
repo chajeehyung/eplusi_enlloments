@@ -94,6 +94,7 @@
         </tr>
     </table>
     <input type="submit" value="저장">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 </form>
 </body>
 </html>
