@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>dk.eplusi</groupId>
-    <artifactId>dbHelper</artifactId>
+    <artifactId>enrollments</artifactId>
     <version>1.0</version>
-    <packaging>war</packaging>
+    <packaging>pom</packaging>
 
     <properties>
         <java-version>1.8</java-version>
@@ -61,7 +61,7 @@
     </dependencies>
 
     <build>
-        <finalName>dastTestApp</finalName>
+        <finalName>eplusi_enrollments</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
