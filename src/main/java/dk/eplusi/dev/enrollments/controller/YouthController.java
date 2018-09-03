@@ -27,47 +27,84 @@ import java.util.*;
 public class YouthController {
     private static final Logger LOGGER = LoggerFactory.getLogger(YouthController.class);
 
-    private static final Map<String, String> keywordMap = new LinkedHashMap<>();
+    private static final List<String> PEER_LIST = new ArrayList<>();
     static {
-        keywordMap.put("youthName", "청년 이름");
-        keywordMap.put("youthPeer", "청년 또래");
-        keywordMap.put("cellPhone", "핸드폰 번호");
-        keywordMap.put("religionType", "신급");
+        for(int i = 0; i < 100; i++) {
+            String s;
+            if(i < 10)
+                s = "0" + i;
+            else
+                s = String.valueOf(i);
+            PEER_LIST.add(s);
+        }
+    }
+
+    private static final Map<String, String> KEYWORD_MAP = new LinkedHashMap<>();
+    static {
+        KEYWORD_MAP.put("youthName", "청년 이름");
+        KEYWORD_MAP.put("youthPeer", "청년 또래");
+        KEYWORD_MAP.put("cellPhone", "핸드폰 번호");
+        KEYWORD_MAP.put("religionType", "신급");
+    }
+
+    private <T> T getOptionalValue(Optional<T> optional) {
+        return optional.orElse(null);
     }
 
     private Youth setYouthInformation (Youth youth, HttpServletRequest request) throws ParseException {
+        //essential
         youth.setYouthName(request.getParameter("youthName"));
         youth.setYouthPeer(request.getParameter("youthPeer"));
-        youth.setGender(request.getParameter("gender").charAt(0));
-        youth.setBirthDate(DateUtility.parse(request.getParameter("birthDate")));
-        youth.setCellPhone(request.getParameter("cellPhone"));
-        youth.setHomeAddress(request.getParameter("homeAddress"));
+        String cellPhone = request.getParameter("cellPhone1") + request.getParameter("cellPhone2") + request.getParameter("cellPhone3");
+        youth.setCellPhone(cellPhone);
+        //optional
+        String gender = request.getParameter("gender");
+        if(gender != null)
+            youth.setGender(gender.charAt(0));
+        String birthDate = request.getParameter("birthDate");
+        if(birthDate != null && !birthDate.isEmpty())
+            youth.setBirthDate(DateUtility.parse(birthDate));
+        String homeAddress = request.getParameter("homeAddress");
+        if(homeAddress != null && !homeAddress.isEmpty())
+            youth.setHomeAddress(homeAddress);
         String isBornChrParam = request.getParameter("isBornChr");
-        if(isBornChrParam == null)
-            youth.setIsBornChr(null);
-        else
+        if(isBornChrParam != null)
             youth.setIsBornChr(Integer.valueOf(isBornChrParam));
+        else
+            youth.setIsBornChr(-1);
         String isSelfInParam = request.getParameter("isSelfIn");
-        if(isSelfInParam == null)
-            youth.setIsSelfIn(null);
-        else
+        if(isSelfInParam != null)
             youth.setIsSelfIn(Integer.valueOf(isSelfInParam));
-        youth.setGuideName(request.getParameter("guideName"));
-        youth.setOccType(occTypeRepository.findById(Integer.valueOf(request.getParameter("occType"))).get());
-        youth.setOcc(occRepository.findById(Integer.valueOf(request.getParameter("occ"))).get());
-        youth.setBizType(bizTypeRepository.findById(Integer.valueOf(request.getParameter("bizType"))).get());
-        youth.setReligionType(religionTypeRepository.findById(Integer.valueOf(request.getParameter("religionType"))).get());
-        youth.setChurchRegDate(DateUtility.parse(request.getParameter("churchRegDate")));
+        else
+            youth.setIsSelfIn(-1);
+        String guideName = request.getParameter("guideName");
+        if(guideName != null && !guideName.isEmpty())
+            youth.setGuideName(guideName);
+        String occType = request.getParameter("occType");
+        if(occType != null && !occType.isEmpty())
+            youth.setOccType(getOptionalValue(occTypeRepository.findById(Integer.valueOf(occType))));
+        String occ = request.getParameter("occ");
+        if(occ != null && !occ.isEmpty())
+            youth.setOcc(getOptionalValue(occRepository.findById(Integer.valueOf(occ))));
+        String bizType = request.getParameter("bizType");
+        if(bizType != null && !bizType.isEmpty())
+            youth.setBizType(getOptionalValue(bizTypeRepository.findById(Integer.valueOf(bizType))));
+        String religionType = request.getParameter("religionType");
+        if(religionType != null && !religionType.isEmpty())
+            youth.setReligionType(getOptionalValue(religionTypeRepository.findById(Integer.valueOf(religionType))));
+        String churchRegDate = request.getParameter("churchRegDate");
+        if(churchRegDate != null && !churchRegDate.isEmpty())
+            youth.setChurchRegDate(DateUtility.parse(churchRegDate));
         String isAttendingParam = request.getParameter("isAttending");
-        if(isAttendingParam == null)
-            youth.setIsSelfIn(null);
+        if(isAttendingParam != null)
+            youth.setIsAttending(Integer.valueOf(isAttendingParam));
         else
-            youth.setIsSelfIn(Integer.valueOf(isAttendingParam));
+            youth.setIsAttending(-1);
         String isRegisteredParam = request.getParameter("isRegistered");
-        if(isRegisteredParam == null)
-            youth.setIsSelfIn(null);
+        if(isRegisteredParam != null)
+            youth.setIsRegistered(Integer.valueOf(isRegisteredParam));
         else
-            youth.setIsSelfIn(Integer.valueOf(isRegisteredParam));
+            youth.setIsRegistered(-1);
         youth.setUpdateTime(DateUtility.getToday());
 
         return youth;
@@ -89,7 +126,8 @@ public class YouthController {
     }
 
     @PostMapping(value = "youthInsert")
-    public String youthInsert(Model model) throws Exception {
+    public String youthInsert(Model model) {
+        model.addAttribute("peerList", PEER_LIST);
         model.addAttribute("occTypeList", occTypeRepository.findAll());
         model.addAttribute("occList", occRepository.findAll());
         model.addAttribute("bizTypeList", bizTypeRepository.findAll());
@@ -99,23 +137,27 @@ public class YouthController {
     }
 
     @PostMapping(value = "youthInsertResult")
-    public String youthInsertResult(HttpServletRequest request, Model model) throws Exception {
-        Youth youth = setYouthInformation(new Youth(), request);
-        model.addAttribute("youth", youth);
-        Youth saveResult = youthRepository.save(youth);
-        model.addAttribute("youthId", saveResult.getYouthId());
-        model.addAttribute("success", youth.equals(saveResult));
-
+    public String youthInsertResult(HttpServletRequest request, Model model) {
+        try {
+            Youth youth = setYouthInformation(new Youth(), request);
+            model.addAttribute("youth", youth);
+            Youth saveResult = youthRepository.save(youth);
+            model.addAttribute("youthId", saveResult.getYouthId());
+            model.addAttribute("success", youth.equals(saveResult));
+        } catch (ParseException e) {
+            model.addAttribute("errorMsg", "날짜 형식이 필요한 값을 잘못 입력하였습니다.");
+        }
         return "youth/youthInsertResult";
     }
 
     @PostMapping(value = "youthModify")
-    public String youthModify(HttpServletRequest request, Model model) throws Exception {
+    public String youthModify(HttpServletRequest request, Model model) {
         Integer youthId = Integer.valueOf(request.getParameter("youthId"));
         Optional<Youth> result = youthRepository.findById(youthId);
         if(result.isPresent()) {
             Youth youth = result.get();
             model.addAttribute("youth", youth);
+            model.addAttribute("peerList", PEER_LIST);
 
             List<Map<String, Object>> occTypeList = new ArrayList<>();
             occTypeRepository.findAll().forEach(occType -> {
@@ -166,20 +208,24 @@ public class YouthController {
     }
 
     @PostMapping(value = "youthModifyResult")
-    public String youthModifyResult(HttpServletRequest request, Model model) throws Exception {
-        Integer youthId = Integer.valueOf(request.getParameter("youthId"));
-        Optional<Youth> result = youthRepository.findById(youthId);
-        if(result.isPresent()) {
-            Youth youth = setYouthInformation(result.get(), request);
-            model.addAttribute("youth", youth);
-            Youth saveResult = youthRepository.save(youth);
-            model.addAttribute("success", youth.equals(saveResult));
+    public String youthModifyResult(HttpServletRequest request, Model model) {
+        try {
+            Integer youthId = Integer.valueOf(request.getParameter("youthId"));
+            Optional<Youth> result = youthRepository.findById(youthId);
+            if (result.isPresent()) {
+                Youth youth = setYouthInformation(result.get(), request);
+                model.addAttribute("youth", youth);
+                Youth saveResult = youthRepository.save(youth);
+                model.addAttribute("success", youth.equals(saveResult));
+            }
+        } catch (ParseException e) {
+            model.addAttribute("error", "날짜 형식이 필요한 값을 잘못 입력하였습니다.");
         }
         return "youth/youthModifyResult";
     }
 
     @GetMapping(value = "youthDetail")
-    public String youthDetail(HttpServletRequest request, Model model) throws Exception {
+    public String youthDetail(HttpServletRequest request, Model model) {
         Integer youthId = Integer.valueOf(request.getParameter("youthId"));
         Optional<Youth> result = youthRepository.findById(youthId);
         model.addAttribute("found", result.isPresent());
@@ -191,12 +237,12 @@ public class YouthController {
     }
 
     @GetMapping(value = "/youthSearch")
-    public String youthSearchGet(HttpServletRequest request, Model model, Pageable pageable) throws Exception {
+    public String youthSearchGet(HttpServletRequest request, Model model, Pageable pageable) {
         return youthSearchPost(request, model, pageable);
     }
 
     @PostMapping(value = "/youthSearch")
-    public String youthSearchPost(HttpServletRequest request, Model model, @PageableDefault(size = 20) Pageable pageable) throws Exception {
+    public String youthSearchPost(HttpServletRequest request, Model model, @PageableDefault(size = 20) Pageable pageable) {
         Page<Youth> result = null;
         String target = request.getParameter("target");
         String keyword = request.getParameter("keyword");
@@ -226,7 +272,7 @@ public class YouthController {
 
         model.addAttribute("size", result.getTotalElements());
         model.addAttribute("youths", result.getContent());
-        model.addAttribute("keywordMap", keywordMap);
+        model.addAttribute("keywordMap", KEYWORD_MAP);
 
         List<Integer> pageNumbers = new ArrayList<>();
         for(int i = 0; i < result.getTotalPages(); i++)
@@ -237,7 +283,7 @@ public class YouthController {
     }
 
     @PostMapping(value = "youthDeleteResult")
-    public String youthDeleteResult(HttpServletRequest request, Model model) throws Exception {
+    public String youthDeleteResult(HttpServletRequest request, Model model) {
         Integer youthId = Integer.valueOf(request.getParameter("youthId"));
         Optional<Youth> result = youthRepository.findById(youthId);
         if(result.isPresent()) {
@@ -252,7 +298,7 @@ public class YouthController {
     }
 
     @PostMapping(value = "youthDeleteAllResult")
-    public String youthDeleteAllResult(HttpServletRequest request, Model model) throws Exception {
+    public String youthDeleteAllResult(HttpServletRequest request, Model model) {
         youthRepository.deleteAll();
         model.addAttribute("success", true);    //TODO 실패조건?
         return "youth/youthDeleteAllResult";

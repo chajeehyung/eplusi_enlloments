@@ -6,8 +6,8 @@
 <body>
 <div th:replace="fragments/header::header">header</div>
 <div class="container">
-    <h3>청년 - 상세 정보</h3>
-    <a href="youthSearch">검색 페이지로</a>
+    <h3>청년 - 추가 결과</h3>
+    <a th:href="@{youthSearch}">검색 페이지로</a>
     <hr>
     <div th:if="${success}">
         청년 정보 추가를 성공하였습니다.<br>
@@ -26,7 +26,7 @@
             </tr>
             <tr>
                 <td>성별</td>
-                <td th:if="*{gender == null}">정보 없음</td>
+                <td th:if="*{gender == null}">(정보 없음)</td>
                 <td th:if="*{gender != null && gender.toString().equals('M')}" th:text="남"></td>
                 <td th:if="*{gender != null && gender.toString().equals('F')}" th:text="여"></td>
             </tr>
@@ -44,13 +44,15 @@
             </tr>
             <tr>
                 <td>모태신앙여부</td>
-                <td th:if="*{isBornChr == 1}" th:text="예"></td>
-                <td th:if="*{isBornChr == 0}" th:text="아니오"></td>
+                <td th:if="*{isBornChr == 1}">예</td>
+                <td th:if="*{isBornChr == 0}">아니오</td>
+                <td th:if="*{isBornChr == -1}">(정보 없음)</td>
             </tr>
             <tr>
                 <td>자진등록여부</td>
-                <td th:if="*{isSelfIn == 1}" th:text="예"></td>
-                <td th:if="*{isSelfIn == 0}" th:text="아니오"></td>
+                <td th:if="*{isSelfIn == 1}">예</td>
+                <td th:if="*{isSelfIn == 0}">아니오</td>
+                <td th:if="*{isSelfIn == -1}">(정보 없음)</td>
             </tr>
             <tr>
                 <td>인도자 성명</td>
@@ -83,13 +85,15 @@
             </tr>
             <tr>
                 <td>출석 상태</td>
-                <td th:if="*{isAttending == 1}" th:text="예"></td>
-                <td th:if="*{isAttending == 0}" th:text="아니오"></td>
+                <td th:if="*{isAttending == 1}">예</td>
+                <td th:if="*{isAttending == 0}">아니오</td>
+                <td th:if="*{isAttending == -1}">(정보 없음)</td>
             </tr>
             <tr>
                 <td>등록 여부</td>
-                <td th:if="*{isRegistered == 1}" th:text="예"></td>
-                <td th:if="*{isRegistered == 0}" th:text="아니오"></td>
+                <td th:if="*{isRegistered == 1}">예</td>
+                <td th:if="*{isRegistered == 0}">아니오</td>
+                <td th:if="*{isRegistered == -1}">(정보 없음)</td>
             </tr>
         </table>
         <form method="post" action="youthModify">
@@ -99,7 +103,9 @@
         </form>
     </div>
     <div th:unless="${success}">
-        청년 정보 추가를 실패하였습니다.<br>
+        <div class="alert alert-danger">
+            청년 정보 추가를 실패하였습니다: <span th:text="${errorMsg}">errorMsg</span>
+        </div>
     </div>
 </div>
 <div th:replace="fragments/footer::footer">footer</div>

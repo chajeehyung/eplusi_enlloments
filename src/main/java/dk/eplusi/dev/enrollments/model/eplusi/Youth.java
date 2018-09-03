@@ -109,6 +109,28 @@ public class Youth {
         return cellPhone;
     }
 
+    public String getCellPhone(int pos) {
+        if(cellPhone == null)
+            return "";
+
+        switch (pos) {
+            case 1:
+                return cellPhone.substring(0, 3);
+            case 2:
+                if(cellPhone.length() < 11)
+                    return cellPhone.substring(3, 6);
+                else
+                    return cellPhone.substring(3, 7);
+            case 3:
+                if(cellPhone.length() < 11)
+                    return cellPhone.substring(6, 10);
+                else
+                    return cellPhone.substring(7, 11);
+            default:
+                return "";
+        }
+    }
+
     public void setCellPhone(String cellPhone) {
         this.cellPhone = cellPhone;
     }
