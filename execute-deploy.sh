@@ -1,2 +1,2 @@
 #!/bin/bash
-/home/ec2-user/app/travis/deploy.sh > /dev/null 2> /dev/null < /dev/null &
+/home/eplusi_dev/app/travis/deploy.sh > /dev/null 2> /dev/null < /dev/null &
