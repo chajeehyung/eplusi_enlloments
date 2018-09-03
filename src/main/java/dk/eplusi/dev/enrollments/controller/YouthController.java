@@ -282,6 +282,7 @@ public class YouthController {
         return "youth/youthSearch";
     }
 
+    //TODO batch delete 구현 필요
     @PostMapping(value = "youthDeleteResult")
     public String youthDeleteResult(HttpServletRequest request, Model model) {
         Integer youthId = Integer.valueOf(request.getParameter("youthId"));
