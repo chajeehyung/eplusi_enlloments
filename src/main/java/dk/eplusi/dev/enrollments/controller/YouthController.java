@@ -219,7 +219,7 @@ public class YouthController {
                 model.addAttribute("success", youth.equals(saveResult));
             }
         } catch (ParseException e) {
-            model.addAttribute("error", "날짜 형식이 필요한 값을 잘못 입력하였습니다.");
+            model.addAttribute("errorMsg", "날짜 형식이 필요한 값을 잘못 입력하였습니다.");
         }
         return "youth/youthModifyResult";
     }

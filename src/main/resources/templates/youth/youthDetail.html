@@ -7,7 +7,7 @@
 <div th:replace="fragments/header::header">header</div>
 <div class="container">
     <h3>청년 - 상세 정보</h3>
-    <a href="youthSearch">검색 페이지로</a>
+    <a th:href="@{youthSearch}">검색 페이지로</a>
     <hr>
     <div th:if="${found}">
         <table class="table table-striped" th:object="${youth}">
