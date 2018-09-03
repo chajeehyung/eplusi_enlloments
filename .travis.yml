@@ -37,4 +37,4 @@ deploy:
   wait-until-deployed: true
   on:
     repo: dkeplusi-database/eplusi_enlloments #Github 주소
-    branch: developK
+    branch: develop
