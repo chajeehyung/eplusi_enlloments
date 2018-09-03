@@ -14,9 +14,9 @@ cache:
 script: "mvn clean package"
 
 before_deploy:
-  - zip -r enrollments *
+  - zip -r eplusi-enrollments *
   - mkdir -p deploy
-  - mv enrollments.zip deploy/enrollments.zip
+  - mv eplusi-enrollments.zip deploy/eplusi-enrollments.zip
 
 deploy:
   - provider: s3
