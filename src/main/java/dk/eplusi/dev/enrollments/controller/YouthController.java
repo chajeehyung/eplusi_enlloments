@@ -125,7 +125,7 @@ public class YouthController {
         this.religionTypeRepository = religionTypeRepository;
     }
 
-    @PostMapping(value = "youthInsert")
+    @GetMapping(value = "youthInsert")
     public String youthInsert(Model model) {
         model.addAttribute("peerList", PEER_LIST);
         model.addAttribute("occTypeList", occTypeRepository.findAll());

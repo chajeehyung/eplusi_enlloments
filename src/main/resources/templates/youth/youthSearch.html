@@ -35,10 +35,10 @@
             <input type="submit" name="deleteSubmit" value="모두 삭제">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         </form>
-        <form method="post" action="youthInsert">
-            <input type="submit" name="insertSubmit" value="청년 추가">
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-        </form>
+        <!--<form method="post" action="youthInsert">-->
+            <!--<input type="submit" name="insertSubmit" value="청년 추가">-->
+            <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+        <!--</form>-->
         <form id="searchYouthForm" method="get" action="youthSearch">
             검색 기준:
             <select name="target">
