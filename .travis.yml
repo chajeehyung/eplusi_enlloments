@@ -2,9 +2,9 @@ language: java
 jdk:
 - oraclejdk8
 
-#branches:
-#  only:
-#  - develop
+branches:
+  only:
+  - develop
 
 # Travis CI 서버의 Home
 cache:
@@ -14,9 +14,9 @@ cache:
 script: "mvn clean package"
 
 before_deploy:
-- zip -r enrollments *
-- mkdir -p deploy
-- mv enrollments.zip deploy/enrollments.zip
+  - zip -r enrollments *
+  - mkdir -p deploy
+  - mv enrollments.zip deploy/enrollments.zip
 
 deploy:
   - provider: s3
