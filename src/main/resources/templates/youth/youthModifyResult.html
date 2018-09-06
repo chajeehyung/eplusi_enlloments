@@ -32,7 +32,8 @@
             </tr>
             <tr>
                 <td>생년월일</td>
-                <td th:text="*{birthDate}"></td>
+                <td th:if="*{birthDate != null}" th:text="*{birthDate}"></td>
+                <td th:unless="*{birthDate != null}">(정보 없음)</td>
             </tr>
             <tr>
                 <td>핸드폰 번호</td>
@@ -40,7 +41,8 @@
             </tr>
             <tr>
                 <td>자택주소</td>
-                <td th:text="*{homeAddress}"></td>
+                <td th:if="*{homeAddress != null && !homeAddress.isEmpty()}" th:text="*{homeAddress}"></td>
+                <td th:unless="*{homeAddress != null && !homeAddress.isEmpty()}">(정보 없음)</td>
             </tr>
             <tr>
                 <td>모태신앙여부</td>
@@ -81,7 +83,8 @@
             </tr>
             <tr>
                 <td>교회 등록 날짜</td>
-                <td th:text="*{churchRegDate}"></td>
+                <td th:if="*{churchRegDate != null}" th:text="*{churchRegDate}"></td>
+                <td th:unless="*{churchRegDate != null}">(정보 없음)</td>
             </tr>
             <tr>
                 <td>출석 상태</td>
