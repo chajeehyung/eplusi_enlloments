@@ -59,7 +59,6 @@
                         <li><a class="dropdown-item" role="menuitem" tabindex="-1" th:href="@{/login(logout=true)}">로그아웃</a></li>
                         <li class="dropdown-divider"></li>
                         <li class="dropdown-item">사용자명: <span sec:authentication="name"></span></li>
-                        <li class="dropdown-item">역할: <span sec:authentication="principal.authorities"></span></li>
                     </ul>
                 </li>
             </ul>
