@@ -29,7 +29,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuActive">
                         <li><a class="dropdown-item" th:href="@{/youthSearch}">청년 정보 검색</a></li>
-                        <li><a class="dropdown-item" th:href="@{/youthInsert}">청년 정보 추가</a></li>
+                        <li sec:authorize="hasRole('ROLE_ADMIN')"><a class="dropdown-item" th:href="@{/youthInsert}">청년 정보 추가</a></li>
                         <!--<li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">sub menu example</a>-->
                             <!--<ul class="dropdown-menu">-->
                                 <!--<li><a class="dropdown-item" th:href="@{#}">sub menu 1</a></li>-->
@@ -43,8 +43,8 @@
                         청년 소속 정보
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuPassive">
-                        <li><a class="dropdown-item" th:href="@{/youthOrgInsert}">청년 소속 정보 입력</a></li>
                         <li><a class="dropdown-item" th:href="@{/youthOrgSearch}">청년 소속 정보 검색</a></li>
+                        <li sec:authorize="hasRole('ROLE_ADMIN')"><a class="dropdown-item" th:href="@{/youthOrgInsert}">청년 소속 정보 추가</a></li>
                     </ul>
                 </li>
             </ul>
