@@ -283,25 +283,28 @@ public class YouthController {
     }
 
     //TODO batch delete 구현 필요
-    @PostMapping(value = "youthDeleteResult")
+    @PostMapping(value = "/youthDeleteResult")
     public String youthDeleteResult(HttpServletRequest request, Model model) {
-        Integer youthId = Integer.valueOf(request.getParameter("youthId"));
-        Optional<Youth> result = youthRepository.findById(youthId);
-        if(result.isPresent()) {
-            Youth youth = result.get();
-            youthRepository.delete(youth);
-            model.addAttribute("name", youth.getYouthName());
-            model.addAttribute("success", true);
-        } else {
-            model.addAttribute("success", false);
-        }
-        return "youth/youthDeleteResult";
-    }
+        List<String> deletedNames = new ArrayList<>();
+        String[] youthIds = request.getParameterValues("youthId");
 
-    @PostMapping(value = "youthDeleteAllResult")
-    public String youthDeleteAllResult(HttpServletRequest request, Model model) {
-        youthRepository.deleteAll();
-        model.addAttribute("success", true);    //TODO 실패조건?
-        return "youth/youthDeleteAllResult";
+        if (youthIds != null && youthIds.length > 0) {
+            for (String youthIdStr : youthIds) {
+                Integer youthId = Integer.valueOf(youthIdStr);
+                Optional<Youth> result = youthRepository.findById(youthId);
+                if (result.isPresent()) {
+                    Youth youth = result.get();
+                    youthRepository.delete(youth);
+                    deletedNames.add(youth.getYouthName());
+                }
+            }
+            int diff = youthIds.length - deletedNames.size();
+            if(diff > 0)
+                model.addAttribute("errorMsg", diff + "개의 청년 정보는 삭제할 수 없습니다.");
+        } else {
+            model.addAttribute("errorMsg", "삭제 요청이 올바르지 않습니다.");
+        }
+        model.addAttribute("deletedNames", deletedNames);
+        return "youth/youthDeleteResult";
     }
 }

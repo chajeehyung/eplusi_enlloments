@@ -7,10 +7,14 @@
 <div th:replace="fragments/header::header">header</div>
 <div class="container">
     <h3>청년 - 삭제</h3>
-    <a th:href="@{youthSearch}">검색 페이지로</a>
     <hr>
-    <p th:if="${success}" th:text="${name} + ' 청년 상세 정보 삭제를 성공하였습니다.'"></p>
-    <p th:unless="${success}" th:text="해당 청년 상세 정보 삭제를 실패하였습니다. 해당 청년 정보를 찾을 수 없습니다."></p>
+    <div th:if="${deletedNames.size() > 0}">
+        <p>다음의 청년 상세 정보를 삭제하였습니다:</p>
+        <ul>
+            <li th:each="deletedName : ${deletedNames}" th:text="${deletedName}">deletedName</li>
+        </ul>
+    </div>
+    <span th:if="${errorMsg != null}" th:text="${errorMsg}"></span>
 </div>
 <div th:replace="fragments/footer::footer">footer</div>
 </body>
