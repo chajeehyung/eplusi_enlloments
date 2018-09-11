@@ -1,0 +1,50 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>DK E+I - Enrollments</title>
+    <div th:replace="fragments/header::header-style">header-style</div>
+</head>
+<body>
+<div th:replace="fragments/header::header">header</div>
+<div class="container">
+    <h3>청년 소속 정보 - 파일 업로드</h3>
+    <hr>
+    <div th:if="${success}">
+        청년 소속 정보 추가를 성공하였습니다.<br>
+        <table class="table table-striped" th:object="${youthOrg}">
+            <tr>
+                <td><b>항목</b></td>
+                <td><b>내용</b></td>
+            </tr>
+            <tr>
+                <td>청년 이름</td>
+                <td th:text="*{youth.youthName}"></td>
+            </tr>
+            <tr>
+                <td>청년 또래</td>
+                <td th:text="*{youth.youthPeer}"></td>
+            </tr>
+            <tr>
+                <td>소속</td>
+                <td th:text="*{organization.orgName}"></td>
+            </tr>
+            <tr>
+                <td>직분</td>
+                <td th:text="*{roleType.roleName}"></td>
+            </tr>
+        </table>
+        <form method="post" action="youthModify">
+            <input type="submit" name="modifySubmit" value="상세 정보 수정">
+            <input type="hidden" name="youthOrgId" th:value="${youthOrg.youthOrgId}">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        </form>
+    </div>
+    <div th:unless="${success}">
+        <div class="alert alert-danger">
+            청년 소속 정보 추가를 실패하였습니다: <span th:text="${errorMsg}">errorMsg</span>
+        </div>
+    </div>
+</div>
+</div>
+<div th:replace="fragments/footer::footer">footer</div>
+</body>
+</html>

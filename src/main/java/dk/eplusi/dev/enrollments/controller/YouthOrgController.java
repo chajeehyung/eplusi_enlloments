@@ -1,12 +1,13 @@
 package dk.eplusi.dev.enrollments.controller;
 
 import dk.eplusi.dev.enrollments.common.DateUtility;
+import dk.eplusi.dev.enrollments.model.eplusi.Organization;
+import dk.eplusi.dev.enrollments.model.eplusi.RoleType;
 import dk.eplusi.dev.enrollments.model.eplusi.Youth;
 import dk.eplusi.dev.enrollments.model.eplusi.YouthOrg;
-import dk.eplusi.dev.enrollments.repositorty.OrganizationRepository;
-import dk.eplusi.dev.enrollments.repositorty.RoleTypeRepository;
-import dk.eplusi.dev.enrollments.repositorty.YouthOrgRepository;
-import dk.eplusi.dev.enrollments.repositorty.YouthRepository;
+import dk.eplusi.dev.enrollments.repositorty.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,8 +16,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.*;
 
@@ -26,6 +29,7 @@ import java.util.*;
  */
 @Controller
 public class YouthOrgController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(YouthOrgController.class);
 
     private YouthOrg setYouthOrgInformation (YouthOrg youthOrg, HttpServletRequest request) throws ParseException {
         Youth youth = null;
@@ -229,11 +233,81 @@ public class YouthOrgController {
         return "youthOrg/youthOrgDeleteResult";
     }
 
-    @PostMapping(value = "youthOrgDeleteAllResult")
-    public String youthOrgDeleteAllResult(HttpServletRequest request, Model model) throws Exception {
-        youthOrgRepository.deleteAll();
-        model.addAttribute("success", true);    //TODO 실패조건?
-        return "youthOrg/youthOrgDeleteAllResult";
+    @GetMapping(value = "youthOrgInsertFile")
+    public String youthOrgInsertFile() {
+        return "youthOrg/youthOrgInsertFile";
+    }
+
+    //TODO error 처리
+    @PostMapping(value = "youthOrgInsertFileResult")
+    public String youthOrgInsertFileResult(MultipartFile[] files, Model model) {
+        for(MultipartFile multipartFile : files) {
+            try {
+                int size = (int) multipartFile.getSize();
+                byte[] bytes = new byte[size];
+                int read = multipartFile.getInputStream().read(bytes, 0, size);
+                if(read != size)
+                    LOGGER.warn("The read count does not same with uploaded file size. (size=" + size + ", read=" + read + ")");
+
+                String fileContents = new String(bytes, "EUC-KR");
+                String[] lines = fileContents.split("\r\n");
+                for(String line : lines) {
+                    LOGGER.debug("Line: " + line);
+                    String[] values = line.split(",");
+                    if(values.length != 5) {
+                        LOGGER.warn("The line is invalid youthOrg information: " + line);
+                        continue;
+                    }
+
+                    String youthName = values[0];
+                    String youthPeer = values[1];
+                    String orgName = values[2];
+                    String roleName = values[3];
+                    String appliedYear = values[4];
+
+                    List<Youth> youths = youthRepository.findByYouthNameAndYouthPeer(youthName, youthPeer);
+                    if(youths == null || youths.isEmpty()) {
+                        LOGGER.warn("There is no Youth for the given information. (youthName=" + youthName + ", youthPeer=" + youthPeer + ")");
+                        continue;
+                    } else if(youths.size() > 1) {
+                        LOGGER.warn("There are " + youths.size() + " results for the given information. (youthName=" + youthName + ", youthPeer=" + youthPeer + ")");
+                    }
+                    Youth youth = youths.get(0);
+
+                    List<Organization> organizations = organizationRepository.findByOrgNameAndAppliedYear(orgName, appliedYear);
+                    if(organizations == null || organizations.isEmpty()) {
+                        LOGGER.warn("There is no Organization for the given information. (orgName=" + orgName + ")");
+                        continue;
+                    } else if(organizations.size() > 1) {
+                        LOGGER.warn("There are " + organizations.size() + " results for the given information. (orgName=" + orgName + ")");
+                    }
+                    Organization organization = organizations.get(0);
+
+                    List<RoleType> roleTypes = roleTypeRepository.findByRoleName(roleName);
+                    if(roleTypes == null || roleTypes.isEmpty()) {
+                        LOGGER.warn("There is no RoleType for the given information. (roleName=" + roleName + ")");
+                        continue;
+                    } else if(roleTypes.size() > 1) {
+                        LOGGER.warn("There are " + roleTypes.size() + " results for the given information. (roleName=" + roleName + ")");
+                    }
+                    RoleType roleType = roleTypes.get(0);
+
+                    YouthOrg youthOrg = new YouthOrg();
+                    youthOrg.setYouth(youth);
+                    youthOrg.setOrganization(organization);
+                    youthOrg.setRoleType(roleType);
+                    youthOrg.setStartDate(DateUtility.getFirstDay(Integer.valueOf(appliedYear)));
+                    youthOrg.setEndDate(DateUtility.getLastDay(Integer.valueOf(appliedYear)));
+                    model.addAttribute("youthOrg", youthOrg);
+                    YouthOrg saveResult = youthOrgRepository.save(youthOrg);
+                    model.addAttribute("youthOrgId", saveResult.getYouthOrgId());
+                    model.addAttribute("success", youthOrg.equals(saveResult));
+                }
+            } catch (Exception e) {
+                LOGGER.error("An error occurred while build YouthOrg information: " + e.getMessage());
+            }
+        }
+        return "youthOrg/youthOrgInsertFileResult";
     }
     
 }

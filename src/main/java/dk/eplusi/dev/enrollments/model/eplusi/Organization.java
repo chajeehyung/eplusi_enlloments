@@ -22,8 +22,8 @@ public class Organization {
     @Column(name = "org_name")
     private String orgName;
     @Column(name = "applied_year")
-    @Temporal(TemporalType.DATE)
-    private Date appliedYear;
+//    @Temporal(TemporalType.DATE)
+    private String appliedYear;
 
     public Organization() {
     }
@@ -52,11 +52,11 @@ public class Organization {
         this.orgName = orgName;
     }
 
-    public Date getAppliedYear() {
+    public String getAppliedYear() {
         return appliedYear;
     }
 
-    public void setAppliedYear(Date appliedYear) {
+    public void setAppliedYear(String appliedYear) {
         this.appliedYear = appliedYear;
     }
 
