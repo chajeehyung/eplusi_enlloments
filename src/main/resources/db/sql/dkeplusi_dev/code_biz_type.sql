@@ -1,0 +1,85 @@
+CREATE TABLE code.biz_type
+(
+    biz_type_code varchar(4) PRIMARY KEY NOT NULL,
+    biz_type varchar(40),
+    parent_code varchar(3),
+    update_time datetime,
+    create_time timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('1', '서비스업', '', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('10', '기관·협회', '', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('1001', '정부·공공기관·공기업', '10', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('1002', '협회·단체', '10', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('1003', '법률·법무·특허', '10', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('1004', '세무·회계', '10', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('1005', '연구소·컨설팅·조사', '10', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('108', '호텔·여행·항공', '1', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('109', '외식업·식음료', '1', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('111', '시설관리·경비·용역', '1', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('115', '레저·스포츠·여가', '1', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('118', 'AS·카센터·주유', '1', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('119', '렌탈·임대', '1', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('120', '웨딩·장례·이벤트', '1', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('121', '기타서비스업', '1', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('122', '뷰티·미용', '1', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('2', '제조·화학', '', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('201', '전기·전자·제어', '2', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('202', '기계·설비·자동차', '2', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('204', '석유·화학·에너지', '2', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('205', '섬유·의류·패션', '2', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('207', '화장품·뷰티', '2', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('208', '생활용품·소비재·사무', '2', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('209', '가구·목재·제지', '2', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('210', '농업·어업·광업·임업', '2', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('211', '금속·재료·철강·요업', '2', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('212', '조선·항공·우주', '2', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('213', '기타제조업', '2', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('214', '식품가공·개발', '2', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('215', '반도체·광학·LCD', '2', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('216', '환경', '2', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('3', 'IT·웹·통신', '', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('301', '솔루션·SI·ERP·CRM', '3', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('302', '웹에이젼시', '3', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('304', '쇼핑몰·오픈마켓', '3', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('305', '포털·인터넷·컨텐츠', '3', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('306', '네트워크·통신·모바일', '3', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('307', '하드웨어·장비', '3', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('308', '정보보안·백신', '3', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('313', 'IT컨설팅', '3', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('314', '게임', '3', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('4', '은행·금융업', '', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('401', '은행·금융·저축', '4', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('402', '대출·캐피탈·여신', '4', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('405', '기타금융', '4', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('406', '증권·보험·카드', '4', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('5', '미디어·디자인', '', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('501', '신문·잡지·언론사', '5', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('502', '방송사·케이블', '5', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('503', '연예·엔터테인먼트', '5', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('504', '광고·홍보·전시', '5', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('505', '영화·배급·음악', '5', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('506', '공연·예술·문화', '5', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('509', '출판·인쇄·사진', '5', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('510', '캐릭터·애니메이션', '5', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('511', '디자인·설계', '5', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('6', '교육업', '', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('601', '초중고·대학', '6', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('602', '학원·어학원', '6', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('603', '유아·유치원', '6', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('604', '교재·학습지', '6', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('605', '전문·기능학원', '6', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('7', '의료·제약·복지', '', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('701', '의료(진료과목별)', '7', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('702', '의료(병원종류별)', '7', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('703', '제약·보건·바이오', '7', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('704', '사회복지', '7', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('8', '판매·유통', '', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('801', '판매(매장종류별)', '8', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('802', '판매(상품품목별)', '8', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('803', '유통·무역·상사', '8', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('804', '운송·운수·물류', '8', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('9', '건설업', '', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('901', '건설·건축·토목·시공', '9', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('902', '실내·인테리어·조경', '9', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('903', '환경·설비', '9', null, '2017-10-10 15:08:43');
+INSERT INTO code.biz_type (biz_type_code, biz_type, parent_code, update_time, create_time) VALUES ('904', '부동산·임대·중개', '9', null, '2017-10-10 15:08:43');
