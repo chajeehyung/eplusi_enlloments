@@ -6,6 +6,6 @@ CREATE TABLE eplusi.senior_duty
     role_code int(11) NOT NULL,
     start_date date,
     end_date date,
-    updated_date datetime(6),
-    created_date datetime(6) NOT NULL
+    update_time datetime(6),
+    create_time datetime(6) NOT NULL
 );

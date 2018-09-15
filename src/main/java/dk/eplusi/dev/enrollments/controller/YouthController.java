@@ -1,7 +1,7 @@
 package dk.eplusi.dev.enrollments.controller;
 
 import dk.eplusi.dev.enrollments.common.DateUtility;
-import dk.eplusi.dev.enrollments.model.eplusi.ReligionType;
+import dk.eplusi.dev.enrollments.model.code.ReligionType;
 import dk.eplusi.dev.enrollments.model.eplusi.Youth;
 import dk.eplusi.dev.enrollments.repositorty.*;
 import org.slf4j.Logger;

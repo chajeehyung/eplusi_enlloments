@@ -1,6 +1,6 @@
 package dk.eplusi.dev.enrollments.repositorty;
 
-import dk.eplusi.dev.enrollments.model.eplusi.ReligionType;
+import dk.eplusi.dev.enrollments.model.code.ReligionType;
 import dk.eplusi.dev.enrollments.model.eplusi.Youth;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

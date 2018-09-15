@@ -1,6 +1,6 @@
 package dk.eplusi.dev.enrollments.repositorty;
 
-import dk.eplusi.dev.enrollments.model.eplusi.BizType;
+import dk.eplusi.dev.enrollments.model.code.BizType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

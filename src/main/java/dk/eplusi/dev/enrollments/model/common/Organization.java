@@ -1,16 +1,15 @@
-package dk.eplusi.dev.enrollments.model.eplusi;
+package dk.eplusi.dev.enrollments.model.common;
 
 import dk.eplusi.dev.enrollments.common.Const;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * Created by Gyummy on 2018-03-06.
  *
  */
-@Entity
-@Table(name = Const.TABLE_NAME_ORGANIZATION, catalog = Const.CATALOG_NAME_EPLUSI)
+@Entity(name = Const.TABLE_NAME_ORGANIZATION)
+@Table(name = Const.TABLE_NAME_ORGANIZATION, catalog = Const.CATALOG_NAME_COMMON)
 public class Organization {
 
     @Id
@@ -22,8 +21,7 @@ public class Organization {
     @Column(name = "org_name")
     private String orgName;
     @Column(name = "applied_year")
-//    @Temporal(TemporalType.DATE)
-    private String appliedYear;
+    private Integer appliedYear;
 
     public Organization() {
     }
@@ -52,11 +50,11 @@ public class Organization {
         this.orgName = orgName;
     }
 
-    public String getAppliedYear() {
+    public Integer getAppliedYear() {
         return appliedYear;
     }
 
-    public void setAppliedYear(String appliedYear) {
+    public void setAppliedYear(Integer appliedYear) {
         this.appliedYear = appliedYear;
     }
 

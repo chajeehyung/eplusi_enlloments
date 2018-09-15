@@ -1,4 +1,4 @@
-package dk.eplusi.dev.enrollments.model.eplusi;
+package dk.eplusi.dev.enrollments.model.code;
 
 import dk.eplusi.dev.enrollments.common.Const;
 
@@ -10,7 +10,7 @@ import java.util.Date;
  *
  */
 @Entity(name = Const.TABLE_NAME_OCC)
-@Table(name = Const.TABLE_NAME_OCC, catalog = Const.CATALOG_NAME_EPLUSI)
+@Table(name = Const.TABLE_NAME_OCC, catalog = Const.CATALOG_NAME_CODE)
 public class Occ {
 
     @Id
@@ -20,13 +20,13 @@ public class Occ {
     @Column(name = "occ_name")
     private String occName;
     @Column(name = "parent_code")
-    private int parentCode;
-    @Column(name = "updated_date")
-    @Temporal(TemporalType.DATE)
-    private Date updatedDate;
-    @Column(name = "created_date")
+    private Integer parentCode;
+    @Column(name = "update_time")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate;
+    private Date updateTime;
+    @Column(name = "create_time", insertable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createTime;
 
     public Occ() {
     }
@@ -47,28 +47,28 @@ public class Occ {
         this.occName = occName;
     }
 
-    public int getParentCode() {
+    public Integer getParentCode() {
         return parentCode;
     }
 
-    public void setParentCode(int parentCode) {
+    public void setParentCode(Integer parentCode) {
         this.parentCode = parentCode;
     }
 
-    public Date getUpdatedDate() {
-        return updatedDate;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdatedDate(Date updatedDate) {
-        this.updatedDate = updatedDate;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package dk.eplusi.dev.enrollments.model.eplusi;
+package dk.eplusi.dev.enrollments.model.code;
 
 import dk.eplusi.dev.enrollments.common.Const;
 
@@ -9,7 +9,7 @@ import javax.persistence.*;
  *
  */
 @Entity(name = Const.TABLE_NAME_RELIGION_TYPE)
-@Table(name = Const.TABLE_NAME_RELIGION_TYPE, catalog = Const.CATALOG_NAME_EPLUSI)
+@Table(name = Const.TABLE_NAME_RELIGION_TYPE, catalog = Const.CATALOG_NAME_CODE)
 public class ReligionType {
 
     @Id

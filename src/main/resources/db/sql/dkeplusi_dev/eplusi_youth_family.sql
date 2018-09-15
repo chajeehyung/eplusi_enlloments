@@ -4,6 +4,6 @@ CREATE TABLE eplusi.youth_family
     youth_id int(11) NOT NULL,
     person_name varchar(16) NOT NULL,
     rel_type varchar(20) NOT NULL,
-    updated_date datetime(6),
-    created_date datetime(6) NOT NULL
+    update_time datetime(6),
+    create_time datetime(6) NOT NULL
 );

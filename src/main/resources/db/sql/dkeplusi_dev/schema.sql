@@ -16,8 +16,8 @@ create table eplusi.biz_type
 		primary key,
 	biz_type varchar(40) not null,
 	parent_code varchar(3) null,
-	updated_date datetime default CURRENT_TIMESTAMP null,
-	created_date datetime default CURRENT_TIMESTAMP not null
+	update_time datetime default CURRENT_TIMESTAMP null,
+	create_time datetime default CURRENT_TIMESTAMP not null
 )
 ;
 
@@ -26,8 +26,8 @@ create table eplusi.biz_type_keyword
 	biz_kw_code varchar(6) not null
 		primary key,
 	biz_kw_name varchar(40) not null,
-	updated_date datetime(6) null,
-	created_date datetime(6) not null,
+	update_time datetime(6) null,
+	create_time datetime(6) not null,
 	biz_type_code varchar(4) not null,
 	constraint biz_type_keyword_biz_type_code_2551a01d_fk_biz_type_
 		foreign key (biz_type_code) references eplusi.biz_type (biz_type_code)
@@ -55,8 +55,8 @@ create table eplusi.enroll_status
 		primary key,
 	enroll_status varchar(20) not null,
 	enroll_desc varchar(200) null,
-	updated_date datetime(6) null,
-	created_date datetime(6) not null
+	update_time datetime(6) null,
+	create_time datetime(6) not null
 )
 ;
 
@@ -76,8 +76,8 @@ create table eplusi.occ
 		primary key,
 	occ_name varchar(40) not null,
 	parent_code varchar(4) null,
-	updated_date datetime default CURRENT_TIMESTAMP null,
-	created_date datetime default CURRENT_TIMESTAMP not null
+	update_time datetime default CURRENT_TIMESTAMP null,
+	create_time datetime default CURRENT_TIMESTAMP not null
 )
 ;
 
@@ -107,8 +107,8 @@ create table eplusi.occ_type
 	occ_type_code int auto_increment
 		primary key,
 	occ_type varchar(20) not null,
-	updated_date datetime(6) null,
-	created_date datetime(6) not null
+	update_time datetime(6) null,
+	create_time datetime(6) not null
 )
 ;
 
@@ -130,8 +130,8 @@ create table eplusi.organization
 	parent_code int null,
 	org_name varchar(50) not null,
 	applied_year varchar(4) not null,
-	updated_date datetime(6) null,
-	created_date datetime(6) not null
+	update_time datetime(6) null,
+	create_time datetime(6) not null
 )
 ;
 
@@ -140,8 +140,8 @@ create table eplusi.religion_type
 	religion_type_code int auto_increment
 		primary key,
 	religion_type varchar(8) not null,
-	updated_date datetime(6) null,
-	created_date datetime(6) not null
+	update_time datetime(6) null,
+	create_time datetime(6) not null
 )
 ;
 
@@ -170,8 +170,8 @@ create table eplusi.role_type
 	role_code int auto_increment
 		primary key,
 	role_name varchar(20) not null,
-	updated_date datetime(6) null,
-	created_date datetime(6) not null,
+	update_time datetime(6) null,
+	create_time datetime(6) not null,
 	constraint role_name
 		unique (role_name)
 )
@@ -181,8 +181,8 @@ create table eplusi.senior
 (
 	christian_id int auto_increment
 		primary key,
-	updated_date datetime(6) null,
-	created_date datetime(6) not null
+	update_time datetime(6) null,
+	create_time datetime(6) not null
 )
 ;
 
@@ -216,8 +216,8 @@ create table eplusi.senior_duty
 	role_code int not null,
 	start_date date null,
 	end_date date null,
-	updated_date datetime(6) null,
-	created_date datetime(6) not null
+	update_time datetime(6) null,
+	create_time datetime(6) not null
 )
 ;
 
@@ -241,8 +241,8 @@ create table eplusi.worker_duty
 	org_code int not null,
 	start_date date null,
 	end_date date null,
-	updated_date datetime(6) null,
-	created_date datetime(6) not null
+	update_time datetime(6) null,
+	create_time datetime(6) not null
 )
 ;
 
@@ -258,8 +258,8 @@ create table eplusi.workers
 (
 	worker_id int auto_increment
 		primary key,
-	updated_date datetime(6) null,
-	created_date datetime(6) not null
+	update_time datetime(6) null,
+	create_time datetime(6) not null
 )
 ;
 
@@ -279,8 +279,8 @@ create table eplusi.youth
 	church_reg_date date null,
 	is_attending int not null,
 	is_registered int null,
-	updated_date datetime default CURRENT_TIMESTAMP null,
-	created_date datetime default CURRENT_TIMESTAMP not null,
+	update_time datetime default CURRENT_TIMESTAMP null,
+	create_time datetime default CURRENT_TIMESTAMP not null,
 	biz_type_code varchar(4) null,
 	occ_code varchar(4) null,
 	occ_type_code int null,
@@ -304,8 +304,8 @@ create table eplusi.cell_report
 	cell_special longtext null,
 	to_minister longtext null,
 	to_leader longtext null,
-	updated_date datetime(6) null,
-	created_date datetime(6) not null,
+	update_time datetime(6) null,
+	create_time datetime(6) not null,
 	cell_leader_id int not null,
 	constraint cell_report_cell_leader_id_6fda9a46_fk_youth_youth_id
 		foreign key (cell_leader_id) references eplusi.youth (youth_id)
@@ -314,13 +314,13 @@ create table eplusi.cell_report
 
 create table eplusi.enrollments
 (
-	enroll_id int auto_increment
+	id int auto_increment
 		primary key,
 	start_date date null,
 	end_date date null,
 	enroll_desc longtext null,
-	updated_date datetime(6) null,
-	created_date datetime(6) not null,
+	update_time datetime(6) null,
+	create_time datetime(6) not null,
 	enroll_status_code int not null,
 	youth_id int not null,
 	constraint enrollments_enroll_status_code_6f042b84_fk_enroll_st
@@ -336,8 +336,8 @@ create table eplusi.prayer_note
 		primary key,
 	prayer_date date not null,
 	prayer_note longtext null,
-	updated_date datetime(6) null,
-	created_date datetime(6) not null,
+	update_time datetime(6) null,
+	create_time datetime(6) not null,
 	youth_id int null,
 	constraint prayer_note_youth_id_dc8748b6_fk_youth_youth_id
 		foreign key (youth_id) references eplusi.youth (youth_id)
@@ -352,8 +352,8 @@ create table eplusi.roll_book
 	worship_att int not null,
 	cell_att int not null,
 	att_desc varchar(100) null,
-	updated_date datetime(6) null,
-	created_date datetime(6) not null,
+	update_time datetime(6) null,
+	create_time datetime(6) not null,
 	youth_id int not null,
 	constraint roll_book_youth_id_6dd1e521_fk_youth_youth_id
 		foreign key (youth_id) references eplusi.youth (youth_id)
@@ -367,8 +367,8 @@ create table eplusi.youth_family
 	youth_id int not null,
 	person_name varchar(16) not null,
 	rel_type varchar(20) not null,
-	updated_date datetime(6) null,
-	created_date datetime(6) not null
+	update_time datetime(6) null,
+	create_time datetime(6) not null
 )
 ;
 
@@ -378,8 +378,8 @@ create table eplusi.youth_org
 		primary key,
 	start_date date null,
 	end_date date null,
-	updated_date datetime(6) null,
-	created_date datetime(6) not null,
+	update_time datetime(6) null,
+	create_time datetime(6) not null,
 	org_code int not null,
 	role_code int not null,
 	youth_id int not null,

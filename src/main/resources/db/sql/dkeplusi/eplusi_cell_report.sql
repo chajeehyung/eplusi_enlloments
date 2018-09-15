@@ -6,8 +6,8 @@ CREATE TABLE eplusi.cell_report
     cell_special text COMMENT '순특이사항',
     to_minister text COMMENT '목사님께',
     to_leader text COMMENT '대표순장님께',
-    updated_date datetime,
-    created_date timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    update_time datetime,
+    create_time timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
     CONSTRAINT cell_leader_id FOREIGN KEY (cell_leader_id) REFERENCES eplusi.youth (youth_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 CREATE INDEX cell_leader_id ON eplusi.cell_report (cell_leader_id);

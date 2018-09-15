@@ -1,8 +1,7 @@
-package dk.eplusi.dev.enrollments.model.eplusi;
+package dk.eplusi.dev.enrollments.model.common;
 
 import dk.eplusi.dev.enrollments.common.Const;
 import dk.eplusi.dev.enrollments.model.code.RoleType;
-import dk.eplusi.dev.enrollments.model.common.Organization;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,47 +10,38 @@ import java.util.Date;
  * Created by Gyummy on 2018-03-06.
  *
  */
-@Entity(name = Const.TABLE_NAME_YOUTH_ORG)
-@Table(name = Const.TABLE_NAME_YOUTH_ORG, catalog = Const.CATALOG_NAME_EPLUSI)
-public class YouthOrg {
+@Entity(name = Const.TABLE_NAME_SENIOR_DUTY)
+@Table(name = Const.TABLE_NAME_SENIOR_DUTY, catalog = Const.CATALOG_NAME_COMMON)
+public class SeniorDuty {
 
     @Id
-    @Column(name = "youth_org_id")
+    @Column(name = "christia_charge_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer youthOrgId;
-    @ManyToOne(targetEntity = Youth.class)
-    @JoinColumn(name = "youth_id")
-    private Youth youth;
+    private Integer christianChargeId;
     @ManyToOne(targetEntity = Organization.class)
     @JoinColumn(name = "org_code")
     private Organization organization;
+    @Column(name = "charge_id")
+    private Integer chargeId;
     @ManyToOne(targetEntity = RoleType.class)
     @JoinColumn(name = "role_code")
     private RoleType roleType;
-    @Temporal(TemporalType.DATE)
     @Column(name = "start_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;
-    @Temporal(TemporalType.DATE)
     @Column(name = "end_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date endDate;
 
-    public YouthOrg() {
+    public SeniorDuty() {
     }
 
-    public Integer getYouthOrgId() {
-        return youthOrgId;
+    public Integer getChristianChargeId() {
+        return christianChargeId;
     }
 
-    public void setYouthOrgId(Integer youthOrgId) {
-        this.youthOrgId = youthOrgId;
-    }
-
-    public Youth getYouth() {
-        return youth;
-    }
-
-    public void setYouth(Youth youth) {
-        this.youth = youth;
+    public void setChristianChargeId(Integer christianChargeId) {
+        this.christianChargeId = christianChargeId;
     }
 
     public Organization getOrganization() {
@@ -60,6 +50,14 @@ public class YouthOrg {
 
     public void setOrganization(Organization organization) {
         this.organization = organization;
+    }
+
+    public Integer getChargeId() {
+        return chargeId;
+    }
+
+    public void setChargeId(Integer chargeId) {
+        this.chargeId = chargeId;
     }
 
     public RoleType getRoleType() {
@@ -86,22 +84,18 @@ public class YouthOrg {
         this.endDate = endDate;
     }
 
-    public static String getIdColumnName() {
-        return "youth_org_id";
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        YouthOrg youthOrg = (YouthOrg) o;
+        SeniorDuty that = (SeniorDuty) o;
 
-        return getYouthOrgId().equals(youthOrg.getYouthOrgId());
+        return getChristianChargeId() != null ? getChristianChargeId().equals(that.getChristianChargeId()) : that.getChristianChargeId() == null;
     }
 
     @Override
     public int hashCode() {
-        return getYouthOrgId().hashCode();
+        return getChristianChargeId() != null ? getChristianChargeId().hashCode() : 0;
     }
 }

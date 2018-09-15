@@ -5,8 +5,8 @@ CREATE TABLE eplusi.roll_book
     worship_att int(11) NOT NULL,
     cell_att int(11) NOT NULL,
     att_desc varchar(100),
-    updated_date datetime(6),
-    created_date datetime(6) NOT NULL,
+    update_time datetime(6),
+    create_time datetime(6) NOT NULL,
     youth_id int(11) NOT NULL,
     CONSTRAINT roll_book_youth_id_6dd1e521_fk_youth_youth_id FOREIGN KEY (youth_id) REFERENCES eplusi.youth (youth_id)
 );

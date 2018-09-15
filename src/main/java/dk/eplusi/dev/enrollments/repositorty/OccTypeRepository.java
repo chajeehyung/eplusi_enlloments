@@ -1,6 +1,6 @@
 package dk.eplusi.dev.enrollments.repositorty;
 
-import dk.eplusi.dev.enrollments.model.eplusi.OccType;
+import dk.eplusi.dev.enrollments.model.code.OccType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

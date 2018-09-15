@@ -1,6 +1,6 @@
 CREATE TABLE eplusi.senior
 (
     christian_id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    updated_date datetime(6),
-    created_date datetime(6) NOT NULL
+    update_time datetime(6),
+    create_time datetime(6) NOT NULL
 );

@@ -1,4 +1,4 @@
-package dk.eplusi.dev.enrollments.model.eplusi;
+package dk.eplusi.dev.enrollments.model.code;
 
 import dk.eplusi.dev.enrollments.common.Const;
 
@@ -10,7 +10,7 @@ import java.util.Date;
  *
  */
 @Entity(name = Const.TABLE_NAME_BIZ_TYPE)
-@Table(name = Const.TABLE_NAME_BIZ_TYPE, catalog = Const.CATALOG_NAME_EPLUSI)
+@Table(name = Const.TABLE_NAME_BIZ_TYPE, catalog = Const.CATALOG_NAME_CODE)
 public class BizType {
 
     @Id
@@ -19,12 +19,14 @@ public class BizType {
     private Integer bizTypeCode;
     @Column(name = "biz_type")
     private String bizType;
-    @Column(name = "updated_date")
-    @Temporal(TemporalType.DATE)
-    private Date updatedDate;
-    @Column(name = "created_date")
+    @Column(name = "parent_code")
+    private Integer parentCode;
+    @Column(name = "update_time")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate;
+    private Date updateTime;
+    @Column(name = "create_time", insertable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createTime;
 
     public BizType() {
     }
@@ -45,20 +47,28 @@ public class BizType {
         this.bizType = bizType;
     }
 
-    public Date getUpdatedDate() {
-        return updatedDate;
+    public Integer getParentCode() {
+        return parentCode;
     }
 
-    public void setUpdatedDate(Date updatedDate) {
-        this.updatedDate = updatedDate;
+    public void setParentCode(Integer parentCode) {
+        this.parentCode = parentCode;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package dk.eplusi.dev.enrollments.repositorty;
 
-import dk.eplusi.dev.enrollments.model.eplusi.Organization;
+import dk.eplusi.dev.enrollments.model.common.Organization;
 
 import java.util.Date;
 import java.util.List;

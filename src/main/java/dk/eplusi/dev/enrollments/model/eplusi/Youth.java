@@ -1,6 +1,10 @@
 package dk.eplusi.dev.enrollments.model.eplusi;
 
 import dk.eplusi.dev.enrollments.common.Const;
+import dk.eplusi.dev.enrollments.model.code.BizType;
+import dk.eplusi.dev.enrollments.model.code.Occ;
+import dk.eplusi.dev.enrollments.model.code.OccType;
+import dk.eplusi.dev.enrollments.model.code.ReligionType;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -55,11 +59,11 @@ public class Youth {
     private Integer isAttending;
     @Column(name = "is_registered")
     private Integer isRegistered;
-    @Temporal(TemporalType.DATE)
-    @Column(name = "updated_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "update_time")
     private Date updateTime;
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_date", insertable = false)
+    @Column(name = "create_time", insertable = false)
     private Date createTime;
 
     public Youth() {
@@ -237,10 +241,6 @@ public class Youth {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-    }
-
-    public static String getIdColumnName() {
-        return "youth_id";
     }
 
     @Override

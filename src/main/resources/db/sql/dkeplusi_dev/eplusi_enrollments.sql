@@ -1,11 +1,11 @@
 CREATE TABLE eplusi.enrollments
 (
-    enroll_id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     start_date date,
     end_date date,
     enroll_desc longtext,
-    updated_date datetime(6),
-    created_date datetime(6) NOT NULL,
+    update_time datetime(6),
+    create_time datetime(6) NOT NULL,
     enroll_status_code int(11) NOT NULL,
     youth_id int(11) NOT NULL,
     CONSTRAINT enrollments_enroll_status_code_6f042b84_fk_enroll_st FOREIGN KEY (enroll_status_code) REFERENCES eplusi.enroll_status (enroll_status_code),

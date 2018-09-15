@@ -5,6 +5,8 @@ package dk.eplusi.dev.enrollments.common;
  * Const strings.
  */
 public class Const {
+    public static final String CATALOG_NAME_CODE = "code";
+    public static final String CATALOG_NAME_COMMON = "common";
     public static final String CATALOG_NAME_EPLUSI = "eplusi";
     //code
     public static final String TABLE_NAME_BIZ_TYPE = "biz_type";
@@ -24,7 +26,8 @@ public class Const {
     public static final String TABLE_NAME_CELL_REPORT = "cell_report";
     public static final String TABLE_NAME_ENROLLMENTS = "enrollments";
     public static final String TABLE_NAME_PRAYER_NOTE = "prayer_note";
-    public static final String TABLE_NAME_ROLE_BOOK = "roll_book";
+    public static final String TABLE_NAME_ROLL_BOOK = "roll_book";
     public static final String TABLE_NAME_YOUTH = "youth";
+    public static final String TABLE_NAME_YOUTH_FAMILY = "youth_familiy";
     public static final String TABLE_NAME_YOUTH_ORG = "youth_org";
 }

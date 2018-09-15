@@ -175,8 +175,8 @@ create table eplusi.cell_report
 	cell_special text null comment '순특이사항',
 	to_minister text null comment '목사님께',
 	to_leader text null comment '대표순장님께',
-	updated_date datetime null on update CURRENT_TIMESTAMP,
-	created_date timestamp default CURRENT_TIMESTAMP not null,
+	update_time datetime null on update CURRENT_TIMESTAMP,
+	create_time timestamp default CURRENT_TIMESTAMP not null,
 	constraint cell_leader_id
 		foreign key (cell_leader_id) references eplusi.youth (youth_id)
 			on update cascade on delete cascade
@@ -186,7 +186,7 @@ comment '순모임 보고서'
 
 create table eplusi.enrollments
 (
-	enroll_id int auto_increment
+	id int auto_increment
 		primary key,
 	youth_id int not null,
 	enroll_status_code int not null,
@@ -210,8 +210,8 @@ create table eplusi.prayer_note
 	youth_id int null comment '순원 ID',
 	prayer_date date not null comment '기도제목 해당 일자',
 	prayer_note text null comment '기도제목 내용',
-	updated_date datetime null on update CURRENT_TIMESTAMP comment '갱신일자',
-	created_date timestamp default CURRENT_TIMESTAMP not null comment '생성일자',
+	update_time datetime null on update CURRENT_TIMESTAMP comment '갱신일자',
+	create_time timestamp default CURRENT_TIMESTAMP not null comment '생성일자',
 	constraint prayer_note_youth_youth_id_fk
 		foreign key (youth_id) references eplusi.youth (youth_id)
 			on update cascade on delete cascade
@@ -228,8 +228,8 @@ create table eplusi.roll_book
 	worship_att tinyint(1) default '0' not null comment '예배 출석 여부',
 	cell_att tinyint(1) default '0' not null comment '순모임 출석 여부',
 	att_desc varchar(100) null comment '결석 사유',
-	updated_date datetime null on update CURRENT_TIMESTAMP comment '갱신일자',
-	created_date timestamp default CURRENT_TIMESTAMP not null comment '생성일자',
+	update_time datetime null on update CURRENT_TIMESTAMP comment '갱신일자',
+	create_time timestamp default CURRENT_TIMESTAMP not null comment '생성일자',
 	constraint youth_id
 		foreign key (youth_id) references eplusi.youth (youth_id)
 )

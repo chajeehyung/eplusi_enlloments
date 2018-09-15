@@ -1,11 +1,14 @@
 package dk.eplusi.dev.enrollments.controller;
 
 import dk.eplusi.dev.enrollments.common.DateUtility;
-import dk.eplusi.dev.enrollments.model.eplusi.Organization;
-import dk.eplusi.dev.enrollments.model.eplusi.RoleType;
+import dk.eplusi.dev.enrollments.model.code.RoleType;
+import dk.eplusi.dev.enrollments.model.common.Organization;
 import dk.eplusi.dev.enrollments.model.eplusi.Youth;
 import dk.eplusi.dev.enrollments.model.eplusi.YouthOrg;
-import dk.eplusi.dev.enrollments.repositorty.*;
+import dk.eplusi.dev.enrollments.repositorty.OrganizationRepository;
+import dk.eplusi.dev.enrollments.repositorty.RoleTypeRepository;
+import dk.eplusi.dev.enrollments.repositorty.YouthOrgRepository;
+import dk.eplusi.dev.enrollments.repositorty.YouthRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +22,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.text.ParseException;
 import java.util.*;
 
@@ -148,7 +150,7 @@ public class YouthOrgController {
 //            List<Map<String, Object>> occTypeList = new ArrayList<>();
 //            occTypeRepository.findAll().forEach(occType -> {
 //                Map<String, Object> occTypeMap = new HashMap<>();
-//                occTypeMap.put("key", occType.getOccTypeCode());
+//                occTypeMap.put("key", occType.getOccType());
 //                occTypeMap.put("value", occType.getOccType());
 //                if(occType.equals(youthOrg.getOccType()))
 //                    occTypeMap.put("selected", true);
@@ -159,7 +161,7 @@ public class YouthOrgController {
 //            List<Map<String, Object>> occList = new ArrayList<>();
 //            occRepository.findAll().forEach(occ -> {
 //                Map<String, Object> occMap = new HashMap<>();
-//                occMap.put("key", occ.getOccCode());
+//                occMap.put("key", occ.getOcc());
 //                occMap.put("value", occ.getOccName());
 //                if(occ.equals(youthOrg.getOcc()))
 //                    occMap.put("selected", true);
@@ -170,9 +172,9 @@ public class YouthOrgController {
 //            List<Map<String, Object>> bizTypeList = new ArrayList<>();
 //            bizTypeRepository.findAll().forEach(bizType -> {
 //                Map<String, Object> bizTypeMap = new HashMap<>();
-//                bizTypeMap.put("key", bizType.getBizTypeCode());
-//                bizTypeMap.put("value", bizType.getBizType());
-//                if(bizType.equals(youthOrg.getBizType()))
+//                bizTypeMap.put("key", bizType.getEnrollStatusCode());
+//                bizTypeMap.put("value", bizType.getEnrollStatus());
+//                if(bizType.equals(youthOrg.getEnrollStatus()))
 //                    bizTypeMap.put("selected", true);
 //                bizTypeList.add(bizTypeMap);
 //            });
@@ -241,7 +243,17 @@ public class YouthOrgController {
     //TODO error 처리
     @PostMapping(value = "youthOrgInsertFileResult")
     public String youthOrgInsertFileResult(MultipartFile[] files, Model model) {
+        List<String> fileNames = new ArrayList<>();
+        Map<String, String> succeedNamesForFile = new HashMap<>();
+        Map<String, String> failedNamesForFile = new HashMap<>();
+        Map<String, String> duplicatedNamesForFile = new HashMap<>();
+        Map<String, String> errorMsgForFile = new HashMap<>();
         for(MultipartFile multipartFile : files) {
+            String fileName = multipartFile.getOriginalFilename();
+            fileNames.add(fileName);
+            List<String> succeedNames = new ArrayList<>();
+            List<String> failedNames = new ArrayList<>();
+            List<String> duplicatedNames = new ArrayList<>();
             try {
                 int size = (int) multipartFile.getSize();
                 byte[] bytes = new byte[size];
@@ -263,7 +275,7 @@ public class YouthOrgController {
                     String youthPeer = values[1];
                     String orgName = values[2];
                     String roleName = values[3];
-                    String appliedYear = values[4];
+                    int appliedYear = Integer.parseInt(values[4]);
 
                     List<Youth> youths = youthRepository.findByYouthNameAndYouthPeer(youthName, youthPeer);
                     if(youths == null || youths.isEmpty()) {
@@ -292,22 +304,48 @@ public class YouthOrgController {
                     }
                     RoleType roleType = roleTypes.get(0);
 
-                    YouthOrg youthOrg = new YouthOrg();
-                    youthOrg.setYouth(youth);
-                    youthOrg.setOrganization(organization);
-                    youthOrg.setRoleType(roleType);
-                    youthOrg.setStartDate(DateUtility.getFirstDay(Integer.valueOf(appliedYear)));
-                    youthOrg.setEndDate(DateUtility.getLastDay(Integer.valueOf(appliedYear)));
-                    model.addAttribute("youthOrg", youthOrg);
-                    YouthOrg saveResult = youthOrgRepository.save(youthOrg);
-                    model.addAttribute("youthOrgId", saveResult.getYouthOrgId());
-                    model.addAttribute("success", youthOrg.equals(saveResult));
+                    List<YouthOrg> duplicatedList = youthOrgRepository.findByYouthAndOrganizationAndRoleTypeAndStartDateAndEndDate(youth, organization, roleType, DateUtility.getFirstDay(appliedYear), DateUtility.getLastDay(appliedYear));
+                    if(duplicatedList.isEmpty()) {
+                        YouthOrg youthOrg = new YouthOrg();
+                        youthOrg.setYouth(youth);
+                        youthOrg.setOrganization(organization);
+                        youthOrg.setRoleType(roleType);
+                        youthOrg.setStartDate(DateUtility.getFirstDay(appliedYear));
+                        youthOrg.setEndDate(DateUtility.getLastDay(appliedYear));
+                        YouthOrg saveResult = youthOrgRepository.save(youthOrg);
+                        if (youthOrg.equals(saveResult))
+                            succeedNames.add(youthName);
+                        else
+                            failedNames.add(youthName);
+                    } else {
+                        duplicatedNames.add(youthName);
+                    }
                 }
             } catch (Exception e) {
                 LOGGER.error("An error occurred while build YouthOrg information: " + e.getMessage());
+                errorMsgForFile.put(fileName, e.getMessage());
             }
+            succeedNamesForFile.put(fileName, convertListToString(succeedNames));
+            failedNamesForFile.put(fileName, convertListToString(failedNames));
+            duplicatedNamesForFile.put(fileName, convertListToString(duplicatedNames));
         }
+
+        model.addAttribute("fileNames", fileNames);
+        model.addAttribute("succeedNamesForFile", succeedNamesForFile);
+        model.addAttribute("failedNamesForFile", failedNamesForFile);
+        model.addAttribute("duplicatedNamesForFile", duplicatedNamesForFile);
+        model.addAttribute("errorMsgForFile", errorMsgForFile);
         return "youthOrg/youthOrgInsertFileResult";
     }
-    
+
+    private String convertListToString(List<String> list) {
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < list.size(); i++) {
+            sb.append(list.get(i));
+            if(i < list.size() - 1) {
+                sb.append(", ");
+            }
+        }
+        return sb.toString();
+    }
 }

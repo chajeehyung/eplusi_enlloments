@@ -8,40 +8,20 @@
 <div class="container">
     <h3>청년 소속 정보 - 파일 업로드</h3>
     <hr>
-    <div th:if="${success}">
-        청년 소속 정보 추가를 성공하였습니다.<br>
-        <table class="table table-striped" th:object="${youthOrg}">
-            <tr>
-                <td><b>항목</b></td>
-                <td><b>내용</b></td>
-            </tr>
-            <tr>
-                <td>청년 이름</td>
-                <td th:text="*{youth.youthName}"></td>
-            </tr>
-            <tr>
-                <td>청년 또래</td>
-                <td th:text="*{youth.youthPeer}"></td>
-            </tr>
-            <tr>
-                <td>소속</td>
-                <td th:text="*{organization.orgName}"></td>
-            </tr>
-            <tr>
-                <td>직분</td>
-                <td th:text="*{roleType.roleName}"></td>
-            </tr>
-        </table>
-        <form method="post" action="youthModify">
-            <input type="submit" name="modifySubmit" value="상세 정보 수정">
-            <input type="hidden" name="youthOrgId" th:value="${youthOrg.youthOrgId}">
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-        </form>
-    </div>
-    <div th:unless="${success}">
-        <div class="alert alert-danger">
-            청년 소속 정보 추가를 실패하였습니다: <span th:text="${errorMsg}">errorMsg</span>
-        </div>
+    <div th:each="fileName : ${fileNames}">
+        <span th:text="${fileName}">fileName</span> 처리 성공.<br>
+        <br>
+        입력 성공 청년 이름 목록:
+        <span th:if="${succeedNamesForFile.containsKey(fileName)}" th:text="${succeedNamesForFile.get(fileName)}">succeedNamesForFile</span><br>
+        <span th:unless="${succeedNamesForFile.containsKey(fileName)}">(해당 사항 없음)</span><br>
+        <br>
+        입력 실패 청년 이름 목록:
+        <span th:if="${failedNamesForFile.containsKey(fileName)}" th:text="${failedNamesForFile.get(fileName)}">failedNamesForFile</span><br>
+        <span th:unless="${failedNamesForFile.containsKey(fileName)}">(해당 사항 없음)</span><br>
+        이미 존재하는 청년 이름 목록:
+        <span th:if="${duplicatedNamesForFile.containsKey(fileName)}" th:text="${duplicatedNamesForFile.get(fileName)}">duplicatedNamesForFile</span><br>
+        <span th:unless="${duplicatedNamesForFile.containsKey(fileName)}">(해당 사항 없음)</span><br>
+        <hr>
     </div>
 </div>
 </div>
