@@ -1,45 +1,19 @@
 package dk.eplusi.dev.enrollments.security.config;
 
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.AuthenticationException;
-//import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-//import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-//import org.springframework.stereotype.Component;
-//
-//import javax.servlet.ServletException;
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
-//import java.io.IOException;
-//
-//@Component
-//public class CustomAuthenticationFailureHandler implements AuthenticationFailureHandler {
-//    private static final Logger LOGGER = LoggerFactory.getLogger(CustomAuthenticationFailureHandler.class);
-//
-//    @Override
-//    public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-//        LOGGER.warn("Authentication failure: (host=" + httpServletRequest.getRemoteHost() + ", user=" + httpServletRequest.getRemoteUser() + ", error=" + e.getMessage() + ")");
-//    }
-//}
-
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
-/**
- * 인증 실패 핸들러
- * @author TerryChang
- *
- */
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 @Component
 public class CustomAuthenticationFailureHandler implements AuthenticationFailureHandler {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CustomAuthenticationFailureHandler.class);
 
     private String loginidname;			// 로그인 id값이 들어오는 input 태그 name
     private String loginpasswdname;		// 로그인 password 값이 들어오는 input 태그 name
@@ -119,6 +93,8 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
         request.setAttribute(exceptionmsgname, exception.getMessage());
 
         request.getRequestDispatcher(defaultFailureUrl).forward(request, response);
+
+        LOGGER.info("Authentication failure: " + exception.getMessage());
     }
 
 }

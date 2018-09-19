@@ -57,7 +57,7 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuUserInfo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         사용자 정보 및 설정</a>
                     <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuUserInfo">
-                        <li><a class="dropdown-item" role="menuitem" tabindex="-1" th:href="@{/login(logout=true)}">로그아웃</a></li>
+                        <li><a class="dropdown-item" role="menuitem" tabindex="-1" th:href="@{/logout}">로그아웃</a></li>
                         <li class="dropdown-divider"></li>
                         <li class="dropdown-item">사용자명: <span sec:authentication="name"></span></li>
                     </ul>

@@ -15,12 +15,12 @@
                 <fieldset>
                     <h1>안녕하세요! :)</h1>
                     <h4>계속하려면 로그인이 필요합니다.</h4>
-                    <div th:if="${param.error}">
+                    <div th:if="${param.error != null}">
                         <div class="alert alert-danger">
                             사용자명 또는 비밀번호가 올바르지 않습니다.
                         </div>
                     </div>
-                    <div th:if="${param.logout}">
+                    <div th:if="${param.logout != null}">
                         <div class="alert alert-info">
                             로그아웃 되었습니다.
                         </div>

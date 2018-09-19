@@ -1,34 +1,5 @@
 package dk.eplusi.dev.enrollments.security.config;
 
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-//import org.springframework.stereotype.Component;
-//
-//import javax.servlet.ServletException;
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
-//import java.io.IOException;
-//
-//@Component
-//public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
-//    private static final Logger LOGGER = LoggerFactory.getLogger(CustomAuthenticationSuccessHandler.class);
-//
-//    @Override
-//    public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-//        LOGGER.info("Authentication success: (host=" + httpServletRequest.getRemoteHost() + ", user=" + authentication.getName() + ")");
-//        httpServletResponse.sendRedirect("");
-//    }
-//}
-
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -41,6 +12,12 @@ import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
@@ -58,48 +35,33 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         useReferer = false;
     }
 
-    public String getTargetUrlParameter() {
-        return targetUrlParameter;
-    }
-    
-    public void setTargetUrlParameter(String targetUrlParameter) {
-        this.targetUrlParameter = targetUrlParameter;
-    }
-    
-    public String getDefaultUrl() {
-        return defaultUrl;
-    }
-
-    public void setDefaultUrl(String defaultUrl) {
-        this.defaultUrl = defaultUrl;
-    }
-    
-    public boolean isUseReferer() {
-        return useReferer;
-    }
-
-    public void setUseReferer(boolean useReferer) {
-        this.useReferer = useReferer;
-    }
-    
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         clearAuthenticationAttributes(request);
 
-        int intRedirectStrategy = decideRedirectStrategy(request, response);
-        switch(intRedirectStrategy) {
+        SavedRequest savedRequest = requestCache.getRequest(request, response);
+        String targetUrl = defaultUrl;
+        switch(decideRedirectStrategy(request, response)) {
             case 1:
-                useTargetUrl(request, response);
+                if(savedRequest != null)
+                    requestCache.removeRequest(request, response);
+
+                targetUrl = request.getParameter(targetUrlParameter);
                 break;
             case 2:
-                useSessionUrl(request, response);
+                targetUrl = savedRequest.getRedirectUrl();
                 break;
             case 3:
-                useRefererUrl(request, response);
+                targetUrl = request.getHeader("REFERER");
                 break;
-            default:
-                useDefaultUrl(request, response);
         }
+        //if redirect target url is logout success url, just redirect main page.
+        String rootPath = request.getRequestURL().substring(0, request.getRequestURL().indexOf(request.getRequestURI()));
+        if(targetUrl.equals(rootPath + SpringSecurityConfig.LOGOUT_SUCCESS_URL))
+            targetUrl = defaultUrl;
+        redirectStrategy.sendRedirect(request, response, targetUrl);
+
+        LOGGER.info("Authentication success: " + authentication.getName());
     }
 
     private void clearAuthenticationAttributes(HttpServletRequest request) {
@@ -110,30 +72,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         }
 
         session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
-    }
-
-    private void useTargetUrl(HttpServletRequest request, HttpServletResponse response) throws IOException{
-        SavedRequest savedRequest = requestCache.getRequest(request, response);
-        if(savedRequest != null) {
-            requestCache.removeRequest(request, response);
-        }
-        String targetUrl = request.getParameter(targetUrlParameter);
-        redirectStrategy.sendRedirect(request, response, targetUrl);
-    }
-
-    private void useSessionUrl(HttpServletRequest request, HttpServletResponse response) throws IOException{
-        SavedRequest savedRequest = requestCache.getRequest(request, response);
-        String targetUrl = savedRequest.getRedirectUrl();
-        redirectStrategy.sendRedirect(request, response, targetUrl);
-    }
-
-    private void useRefererUrl(HttpServletRequest request, HttpServletResponse response) throws IOException{
-        String targetUrl = request.getHeader("REFERER");
-        redirectStrategy.sendRedirect(request, response, targetUrl);
-    }
-
-    private void useDefaultUrl(HttpServletRequest request, HttpServletResponse response) throws IOException{
-        redirectStrategy.sendRedirect(request, response, defaultUrl);
     }
 
     /**
@@ -182,7 +120,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         String refererUrl = request.getHeader("REFERER");
         if(useReferer && StringUtils.hasText(refererUrl))
             result = 3;
-        
+
 
         return result;
     }

@@ -10,28 +10,27 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
 
 @Configuration
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
-//    @Value("${http.port}")
+    //    @Value("${http.port}")
 //    private int httpPort;
 //    @Value("${server.port}")
 //    private int httpsPort;
+    public static final String LOGOUT_SUCCESS_URL = "/login?logout";
+
     private final AccessDeniedHandler ACCESS_DENIED_HANDLER;
     private final AuthenticationSuccessHandler AUTHENTICATION_SUCCESS_HANDLER;
     private final AuthenticationFailureHandler AUTHENTICATION_FAILURE_HANDLER;
-    private final LogoutSuccessHandler LOGOUT_SUCCESS_HANDLER;
 
     @Autowired
-    public SpringSecurityConfig(AccessDeniedHandler ACCESS_DENIED_HANDLER, AuthenticationSuccessHandler AUTHENTICATION_SUCCESS_HANDLER, AuthenticationFailureHandler AUTHENTICATION_FAILURE_HANDLER, LogoutSuccessHandler LOGOUT_SUCCESS_HANDLER) {
+    public SpringSecurityConfig(AccessDeniedHandler ACCESS_DENIED_HANDLER, AuthenticationSuccessHandler AUTHENTICATION_SUCCESS_HANDLER, AuthenticationFailureHandler AUTHENTICATION_FAILURE_HANDLER) {
         super();
         this.ACCESS_DENIED_HANDLER = ACCESS_DENIED_HANDLER;
         this.AUTHENTICATION_SUCCESS_HANDLER = AUTHENTICATION_SUCCESS_HANDLER;
         this.AUTHENTICATION_FAILURE_HANDLER = AUTHENTICATION_FAILURE_HANDLER;
-        this.LOGOUT_SUCCESS_HANDLER = LOGOUT_SUCCESS_HANDLER;
     }
 
     public void configure(WebSecurity webSecurity) throws Exception {
@@ -86,14 +85,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .successHandler(AUTHENTICATION_SUCCESS_HANDLER)
                 .failureHandler(AUTHENTICATION_FAILURE_HANDLER)
-                .failureUrl("/login?error=true")
+                .failureUrl("/login?error")
                 .permitAll()
                 .and()
                 .logout()
-                .logoutSuccessHandler(LOGOUT_SUCCESS_HANDLER)
-                .invalidateHttpSession(true)
+                .logoutSuccessUrl(LOGOUT_SUCCESS_URL)
+//                .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
-                .permitAll()
                 .and()
                 //error handlers
                 .exceptionHandling().accessDeniedHandler(ACCESS_DENIED_HANDLER);
