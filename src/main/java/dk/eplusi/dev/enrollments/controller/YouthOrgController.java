@@ -55,6 +55,7 @@ public class YouthOrgController {
 
         youthOrg.setRoleType(roleTypeRepository.getOne(Integer.valueOf(request.getParameter("roleCode"))));
         youthOrg.setOrganization(organizationRepository.getOne(Integer.valueOf(request.getParameter("orgCode"))));
+        //FIXME 날짜가 1일씩 앞당겨지는듯
         youthOrg.setStartDate(DateUtility.getThisYear());
         youthOrg.setEndDate(DateUtility.getNextYear());
 
