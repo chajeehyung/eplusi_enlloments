@@ -8,7 +8,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-@EnableAutoConfiguration(exclude = {ErrorMvcAutoConfiguration.class})
+//@EnableAutoConfiguration(exclude = {ErrorMvcAutoConfiguration.class})
 public class Application extends SpringBootServletInitializer {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Application.class, args);
