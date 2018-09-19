@@ -8,6 +8,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
 
@@ -17,12 +20,18 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 //    private int httpPort;
 //    @Value("${server.port}")
 //    private int httpsPort;
-    private final AccessDeniedHandler accessDeniedHandler;
+    private final AccessDeniedHandler ACCESS_DENIED_HANDLER;
+    private final AuthenticationSuccessHandler AUTHENTICATION_SUCCESS_HANDLER;
+    private final AuthenticationFailureHandler AUTHENTICATION_FAILURE_HANDLER;
+    private final LogoutSuccessHandler LOGOUT_SUCCESS_HANDLER;
 
     @Autowired
-    public SpringSecurityConfig(AccessDeniedHandler accessDeniedHandler) {
+    public SpringSecurityConfig(AccessDeniedHandler ACCESS_DENIED_HANDLER, AuthenticationSuccessHandler AUTHENTICATION_SUCCESS_HANDLER, AuthenticationFailureHandler AUTHENTICATION_FAILURE_HANDLER, LogoutSuccessHandler LOGOUT_SUCCESS_HANDLER) {
         super();
-        this.accessDeniedHandler = accessDeniedHandler;
+        this.ACCESS_DENIED_HANDLER = ACCESS_DENIED_HANDLER;
+        this.AUTHENTICATION_SUCCESS_HANDLER = AUTHENTICATION_SUCCESS_HANDLER;
+        this.AUTHENTICATION_FAILURE_HANDLER = AUTHENTICATION_FAILURE_HANDLER;
+        this.LOGOUT_SUCCESS_HANDLER = LOGOUT_SUCCESS_HANDLER;
     }
 
     public void configure(WebSecurity webSecurity) throws Exception {
@@ -51,9 +60,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .http(httpPort).mapsTo(httpsPort)
 //                .and()
                 //CSRF setting
-//                .csrf()
-//                .ignoringAntMatchers("/h2-console/**")
-//                .and()
+                .csrf()
+                .and()
                 //authorization for requests
                 .authorizeRequests()
                 /*.antMatchers("/admin/**").hasAnyRole("ADMIN")*/   //intentionally expose admin page.
@@ -76,15 +84,19 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 //login & logout
                 .formLogin()
                 .loginPage("/login")
+                .successHandler(AUTHENTICATION_SUCCESS_HANDLER)
+                .failureHandler(AUTHENTICATION_FAILURE_HANDLER)
                 .failureUrl("/login?error=true")
                 .permitAll()
                 .and()
                 .logout()
+                .logoutSuccessHandler(LOGOUT_SUCCESS_HANDLER)
+                .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
                 .permitAll()
                 .and()
                 //error handlers
-                .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+                .exceptionHandling().accessDeniedHandler(ACCESS_DENIED_HANDLER);
 
     }
 
