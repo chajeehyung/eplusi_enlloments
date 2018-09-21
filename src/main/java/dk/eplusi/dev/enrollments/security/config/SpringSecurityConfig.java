@@ -90,8 +90,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutSuccessUrl(LOGOUT_SUCCESS_URL)
-//                .invalidateHttpSession(true)
+                .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
+                .permitAll()
                 .and()
                 //error handlers
                 .exceptionHandling().accessDeniedHandler(ACCESS_DENIED_HANDLER);
