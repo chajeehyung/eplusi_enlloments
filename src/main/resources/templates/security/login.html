@@ -15,12 +15,12 @@
                 <fieldset>
                     <h1>안녕하세요! :)</h1>
                     <h4>계속하려면 로그인이 필요합니다.</h4>
-                    <div th:if="${param.error}">
+                    <div th:if="${param.error != null}">
                         <div class="alert alert-danger">
                             사용자명 또는 비밀번호가 올바르지 않습니다.
                         </div>
                     </div>
-                    <div th:if="${param.logout}">
+                    <div th:if="${param.logout != null}">
                         <div class="alert alert-info">
                             로그아웃 되었습니다.
                         </div>
@@ -50,17 +50,6 @@
             </form>
         </div>
     </div>
-    <h4>아래 계정으로 동광교회 청년부 교적 관리 어플리케이션을 이용할 수 있습니다.</h4>
-    <br>
-    <table class="table table-striped" style="width:400px;">
-        <thead>
-        <tr class="warning"><th>계정</th><th>사용자명</th><th>비밀번호</th></tr>
-        </thead>
-        <tbody>
-        <tr><td>사용자</td><td>user</td><td>user</td></tr>
-        <tr><td>관리자</td><td>admin</td><td>admin</td></tr>
-        </tbody>
-    </table>
 </div>
 <div th:replace="fragments/footer::footer">footer</div>
 </body>
