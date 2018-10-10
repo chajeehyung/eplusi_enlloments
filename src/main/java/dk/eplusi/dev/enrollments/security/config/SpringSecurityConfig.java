@@ -34,7 +34,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     public void configure(WebSecurity webSecurity) throws Exception {
-        webSecurity.ignoring().antMatchers("/resources/**", "/css/**", "/fonts/**", "/js/**", "/less/**", "/scss/**", "/images/**", "/webjars/**");
+        webSecurity.ignoring().antMatchers("/resources/**", "/css/**", "/vendor/**", "/dist/**", "/fonts/**", "/js/**", "/less/**", "/scss/**", "/images/**", "/webjars/**");
         webSecurity.httpFirewall(allowUrlEncodedSlashHttpFirewall());
     }
 

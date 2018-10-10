@@ -1,21 +1,67 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>DK E+I - Enrollments</title>
     <div th:replace="fragments/header::header-style">header-style</div>
+    <!-- jQuery -->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="/vendor/metisMenu/metisMenu.min.js"></script>
+       <!-- Custom Theme JavaScript -->
+    <script src="/dist/js/sb-admin-2.js"></script>
 </head>
 <body>
-<div th:replace="fragments/header::header">header</div>
-<div class="container">
-    <h3>청년 - 삭제</h3>
-    <hr>
-    <div th:if="${deletedNames.size() > 0}">
-        <p>다음의 청년 상세 정보를 삭제하였습니다:</p>
-        <ul>
-            <li th:each="deletedName : ${deletedNames}" th:text="${deletedName}">deletedName</li>
-        </ul>
+<div id = wrapper>
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div th:replace="fragments/header::header">header</div>
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a th:href="@{/youthSearch}"><i class="fa fa-table fa-fw"></i>청년 정보 검색</a>
+                    </li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a th:href="@{/youthInsert}"><i class="fa fa-edit fa-fw"></i>청년정보 추가</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-sitemap fa-fw"></i>청년 소속 정보<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a th:href="@{/youthOrgSearch}">청년 소속 정보 검색</a>
+                            </li>
+                            <li>
+                                <a href="#">청년 소속 정보 추가<span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li sec:authorize="hasRole('ROLE_ADMIN')">
+                                        <a th:href="@{/youthOrgInsert}">수동 입력</a>
+                                    </li>
+                                    <li sec:authorize="hasRole('ROLE_ADMIN')">
+                                        <a th:href="@{/youthOrgInsertFile}">파일 업로드</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">청년 - 삭제</h1>
+                <a th:href="@{youthSearch}">검색 페이지로</a>
+            </div>
+        </div>
+        <div th:if="${deletedNames.size() > 0}">
+            <p>다음의 청년 상세 정보를 삭제하였습니다:</p>
+            <ul>
+                <li th:each="deletedName : ${deletedNames}" th:text="${deletedName}">deletedName</li>
+            </ul>
+        </div>
+        <span th:if="${errorMsg != null}" th:text="${errorMsg}"></span>
     </div>
-    <span th:if="${errorMsg != null}" th:text="${errorMsg}"></span>
 </div>
-<div th:replace="fragments/footer::footer">footer</div>
 </body>
 </html>

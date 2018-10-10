@@ -81,14 +81,16 @@ public class YouthOrgController {
         keywordMap.put("youthName", "청년 이름");
     }
 
+    // 페이징 제거
     @GetMapping(value = "/youthOrgSearch")
-    public String youthOrgSearchGet(HttpServletRequest request, Model model, Pageable pageable) throws Exception {
-        return youthOrgSearchPost(request, model, pageable);
+    public String youthOrgSearchGet(HttpServletRequest request, Model model) throws Exception {
+        return youthOrgSearchPost(request, model);
     }
 
+    // 페이징 제거
     @PostMapping(value = "/youthOrgSearch")
-    public String youthOrgSearchPost(HttpServletRequest request, Model model, @PageableDefault(size = 20) Pageable pageable) throws Exception {
-        Page<YouthOrg> result = null;
+    public String youthOrgSearchPost(HttpServletRequest request, Model model) throws Exception {
+        List<YouthOrg> result = null;
         String target = request.getParameter("target");
         String keyword = request.getParameter("keyword");
         model.addAttribute("target", target);
@@ -98,21 +100,21 @@ public class YouthOrgController {
                 case "youthName":
                     List<Youth> youthSearched = youthRepository.findByYouthName(keyword);
                     if(!youthSearched.isEmpty())
-                        result = youthOrgRepository.findByYouth(youthSearched.get(0), pageable);
+                        result = youthOrgRepository.findByYouth(youthSearched.get(0));
                     break;
             }
         }
         if(result == null)
-        result = youthOrgRepository.findAll(pageable);
+        result = youthOrgRepository.findAll();
 
-        model.addAttribute("size", result.getTotalElements());
-        model.addAttribute("youthOrgList", result.getContent());
+        model.addAttribute("size", result.size());
+        model.addAttribute("youthOrgList", result.iterator());
         model.addAttribute("keywordMap", keywordMap);
 
-        List<Integer> pageNumbers = new ArrayList<>();
+        /*List<Integer> pageNumbers = new ArrayList<>();
         for(int i = 0; i < result.getTotalPages(); i++)
             pageNumbers.add(i);
-        model.addAttribute("pageNumbers", pageNumbers);
+        model.addAttribute("pageNumbers", pageNumbers);*/
 
         return "youthOrg/youthOrgSearch";
     }
