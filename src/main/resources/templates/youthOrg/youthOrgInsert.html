@@ -2,6 +2,22 @@
 <head>
     <title>DK E+I - Enrollments</title>
     <div th:replace="fragments/header::header-style">header-style</div>
+    <script>
+        $(function() {
+            $("#youthOrgStartDatePicker").datepicker({
+                showButtonPanel: true,
+                currentText: '오늘 날짜',
+                closeText: '닫기',
+                dateFormat: "yy-mm-dd"
+            });
+            $("#youthOrgEndDatePicker").datepicker({
+                showButtonPanel: true,
+                currentText: '오늘 날짜',
+                closeText: '닫기',
+                dateFormat: "yy-mm-dd"
+            });
+        });
+    </script>
 </head>
 <body>
 <div th:replace="fragments/header::header">header</div>
@@ -38,7 +54,20 @@
                 </select>
             </td>
         </tr>
+        <tr>
+            <td>시작일자</td>
+            <td>
+                <input type="text" id="youthOrgStartDatePicker" name="startDate">
+            </td>
+        </tr>
+        <tr>
+            <td>종료일자</td>
+            <td>
+                <input type="text" id="youthOrgEndDatePicker" name="endDate">
+            </td>
+        </tr>
     </table>
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
     <input type="submit" value="저장">
 </form>
 </div>
