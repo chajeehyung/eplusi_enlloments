@@ -236,14 +236,16 @@ public class YouthController {
         return "youth/youthDetail";
     }
 
+    // 페이징 제거
     @GetMapping(value = "/youthSearch")
-    public String youthSearchGet(HttpServletRequest request, Model model, Pageable pageable) {
-        return youthSearchPost(request, model, pageable);
+    public String youthSearchGet(HttpServletRequest request, Model model) {
+        return youthSearchPost(request, model);
     }
 
+    // 페이징 제거
     @PostMapping(value = "/youthSearch")
-    public String youthSearchPost(HttpServletRequest request, Model model, @PageableDefault(size = 20) Pageable pageable) {
-        Page<Youth> result = null;
+    public String youthSearchPost(HttpServletRequest request, Model model) {
+        List<Youth> result = null;
         String target = request.getParameter("target");
         String keyword = request.getParameter("keyword");
         model.addAttribute("target", target);
@@ -251,33 +253,33 @@ public class YouthController {
         if (target != null && !target.isEmpty() && keyword != null && !keyword.isEmpty()) {
             switch (target) {
                 case "youthName":
-                    result = youthRepository.findByYouthName(keyword, pageable);
+                    result = youthRepository.findByYouthName(keyword);
                     break;
                 case "youthPeer":
-                    result = youthRepository.findByYouthPeer(keyword, pageable);
+                    result = youthRepository.findByYouthPeer(keyword);
                     break;
                 case "cellPhone":
-                    result = youthRepository.findByCellPhone(keyword, pageable);
+                    result = youthRepository.findByCellPhone(keyword);
                     break;
                 case "religionType":
                     List<ReligionType> searchedReligionTypeList = religionTypeRepository.findByReligionType(keyword);
                     if(!searchedReligionTypeList.isEmpty())
-                        result = youthRepository.findByReligionType(searchedReligionTypeList.get(0), pageable);
+                        result = youthRepository.findByReligionType(searchedReligionTypeList.get(0));
                     break;
             }
         }
 
         if(result == null)
-            result = youthRepository.findAll(pageable);
+            result = youthRepository.findAll();
 
-        model.addAttribute("size", result.getTotalElements());
-        model.addAttribute("youths", result.getContent());
+        model.addAttribute("size", result.size());
+        model.addAttribute("youths", result.iterator());
         model.addAttribute("keywordMap", KEYWORD_MAP);
 
-        List<Integer> pageNumbers = new ArrayList<>();
+       /* List<Integer> pageNumbers = new ArrayList<>();
         for(int i = 0; i < result.getTotalPages(); i++)
             pageNumbers.add(i);
-        model.addAttribute("pageNumbers", pageNumbers);
+        model.addAttribute("pageNumbers", pageNumbers);*/
 
         return "youth/youthSearch";
     }
