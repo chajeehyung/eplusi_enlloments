@@ -17,19 +17,19 @@
             </tr>
             <tr>
                 <td>청년 이름</td>
-                <td th:text="*{youth.youthName}"></td>
+                <td th:text="*{youth.getYouthName()}"></td>
             </tr>
             <tr>
                 <td>청년 또래</td>
-                <td th:text="*{youth.youthPeer}"></td>
+                <td th:text="*{youth.getYouthPeer()}"></td>
             </tr>
             <tr>
                 <td>소속</td>
-                <td th:text="*{organization.orgName}"></td>
+                <td th:text="*{organization.getOrgName()}"></td>
             </tr>
             <tr>
                 <td>직분</td>
-                <td th:text="*{roleType.roleName}"></td>
+                <td th:text="*{roleType.getRoleName()}"></td>
             </tr>
         </table>
         <form method="post" action="youthModify">
@@ -40,7 +40,7 @@
     </div>
     <div th:unless="${success}">
         <div class="alert alert-danger">
-            청년 소속 정보 추가를 실패하였습니다: <span th:text="${errorMsg}">errorMsg</span>
+            청년 소속 정보 추가를 실패하였습니다: <span th:text="${errMsg}">errorMsg</span>
         </div>
     </div>
 </div>

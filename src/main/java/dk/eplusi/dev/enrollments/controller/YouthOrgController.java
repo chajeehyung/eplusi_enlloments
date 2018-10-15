@@ -1,5 +1,6 @@
 package dk.eplusi.dev.enrollments.controller;
 
+import dk.eplusi.dev.enrollments.attributeSetter.YouthOrgAttributeSetter;
 import dk.eplusi.dev.enrollments.common.DateUtility;
 import dk.eplusi.dev.enrollments.model.code.RoleType;
 import dk.eplusi.dev.enrollments.model.common.Organization;
@@ -22,7 +23,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.ParseException;
 import java.util.*;
 
 /**
@@ -33,32 +33,45 @@ import java.util.*;
 public class YouthOrgController {
     private static final Logger LOGGER = LoggerFactory.getLogger(YouthOrgController.class);
 
-    private YouthOrg setYouthOrgInformation (YouthOrg youthOrg, HttpServletRequest request) throws ParseException {
-        Youth youth = null;
-        String youthId = request.getParameter("youthId");
-        if(youthId != null) {
-            Optional<Youth> result = youthRepository.findById(Integer.valueOf(youthId));
-            if(result.isPresent())
-                youth = result.get();
-        } else {
-            String youthName = request.getParameter("youthName");
-            String youthPeer = request.getParameter("youthPeer");
-            if(youthName != null && !youthName.isEmpty() && youthPeer != null && !youthPeer.isEmpty()) {
-                List<Youth> youths = youthRepository.findByYouthNameAndYouthPeer(youthName, youthPeer);
-                if(youths != null && !youths.isEmpty())
-                    youth = youths.get(0);
-            }
-        }
+//    private YouthOrg setYouthOrgInformation (YouthOrg youthOrg, HttpServletRequest request) throws ParseException {
+//        Youth youth = null;
+//        String youthId = request.getParameter("youthId");
+//        if(youthId != null) {
+//            Optional<Youth> result = youthRepository.findById(Integer.valueOf(youthId));
+//            if(result.isPresent())
+//                youth = result.get();
+//        } else {
+//            String youthName = request.getParameter("youthName");
+//            String youthPeer = request.getParameter("youthPeer");
+//            if(youthName != null && !youthName.isEmpty() && youthPeer != null && !youthPeer.isEmpty()) {
+//                List<Youth> youths = youthRepository.findByYouthNameAndYouthPeer(youthName, youthPeer);
+//                if(youths != null && !youths.isEmpty())
+//                    youth = youths.get(0);
+//            }
+//        }
+//
+//        if(youth != null)
+//            youthOrg.setYouth(youth);
+//
+//        youthOrg.setRoleType(roleTypeRepository.getOne(Integer.valueOf(request.getParameter("roleCode"))));
+//        youthOrg.setOrganization(organizationRepository.getOne(Integer.valueOf(request.getParameter("orgCode"))));
+//        //FIXME 날짜가 1일씩 앞당겨지는듯
+//        youthOrg.setStartDate(DateUtility.getFirstDay(DateUtility.getThisYear()));
+//        youthOrg.setEndDate(DateUtility.getLastDay(DateUtility.getThisYear()));
+//
+//        return youthOrg;
+//    }
 
-        if(youth != null)
-            youthOrg.setYouth(youth);
+    private YouthOrg setAttributes(Youth youth, Organization organization, RoleType roleType, Date startDate, Date endDate) {
+//        if(youth == null || organization == null || roleType == null || startDate == null || endDate == null)
+//            throw new IllegalArgumentException("All attributes excepts for youth_org_id should not be null.");
 
-        youthOrg.setRoleType(roleTypeRepository.getOne(Integer.valueOf(request.getParameter("roleCode"))));
-        youthOrg.setOrganization(organizationRepository.getOne(Integer.valueOf(request.getParameter("orgCode"))));
-        //FIXME 날짜가 1일씩 앞당겨지는듯
-        youthOrg.setStartDate(DateUtility.getThisYear());
-        youthOrg.setEndDate(DateUtility.getNextYear());
-
+        YouthOrg youthOrg = new YouthOrg();
+        youthOrg.setYouth(youth);
+        youthOrg.setOrganization(organization);
+        youthOrg.setRoleType(roleType);
+        youthOrg.setStartDate(startDate);
+        youthOrg.setEndDate(endDate);
         return youthOrg;
     }
 
@@ -66,14 +79,17 @@ public class YouthOrgController {
     private final YouthOrgRepository youthOrgRepository;
     private final OrganizationRepository organizationRepository;
     private final RoleTypeRepository roleTypeRepository;
+    private final YouthOrgAttributeSetter youthOrgAttributeSetter;
 
     @Autowired
     public YouthOrgController(YouthRepository youthRepository, YouthOrgRepository youthOrgRepository,
-                              OrganizationRepository organizationRepository, RoleTypeRepository roleTypeRepository) {
+                              OrganizationRepository organizationRepository, RoleTypeRepository roleTypeRepository,
+                              YouthOrgAttributeSetter youthOrgAttributeSetter) {
         this.youthRepository = youthRepository;
         this.youthOrgRepository = youthOrgRepository;
         this.organizationRepository = organizationRepository;
         this.roleTypeRepository = roleTypeRepository;
+        this.youthOrgAttributeSetter = youthOrgAttributeSetter;
     }
 
     private static final Map<String, String> keywordMap = new LinkedHashMap<>();
@@ -105,6 +121,7 @@ public class YouthOrgController {
             }
         }
         if(result == null)
+
         result = youthOrgRepository.findAll();
 
         model.addAttribute("size", result.size());
@@ -127,17 +144,24 @@ public class YouthOrgController {
     @PostMapping(value = "youthOrgInsert")
     public String youthOrgInsertPost(Model model) throws Exception {
         model.addAttribute("roleTypeList", roleTypeRepository.findAll());
-        model.addAttribute("orgList", organizationRepository.findByAppliedYearBetween(DateUtility.getThisYear(), DateUtility.getNextYear()));
+        model.addAttribute("orgList", organizationRepository.findByAppliedYearBetween(DateUtility.getThisYear(), DateUtility.getYearFromThisYear(1)));
         return "youthOrg/youthOrgInsert";
     }
 
     @PostMapping(value = "youthOrgInsertResult")
     public String youthOrgInsertResult(HttpServletRequest request, Model model) throws Exception {
-        YouthOrg youthOrg = setYouthOrgInformation(new YouthOrg(), request);
-        model.addAttribute("youthOrg", youthOrg);
-        YouthOrg saveResult = youthOrgRepository.save(youthOrg);
-        model.addAttribute("youthOrgId", saveResult.getYouthOrgId());
-        model.addAttribute("success", youthOrg.equals(saveResult));
+        try {
+            YouthOrg youthOrg = youthOrgAttributeSetter.setAttributes(request);
+            model.addAttribute("youthOrg", youthOrg);
+            YouthOrg saveResult = youthOrgRepository.save(youthOrg);
+            model.addAttribute("youthOrgId", saveResult.getYouthOrgId());
+            model.addAttribute("success", youthOrg.equals(saveResult));
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("success", false);
+            model.addAttribute("errMsg", e.getMessage());
+        }
+
+
 
         return "youthOrg/youthOrgInsertResult";
     }
@@ -203,7 +227,7 @@ public class YouthOrgController {
         Integer youthOrgId = Integer.valueOf(request.getParameter("youthOrgId"));
         Optional<YouthOrg> result = youthOrgRepository.findById(youthOrgId);
         if(result.isPresent()) {
-            YouthOrg youthOrg = setYouthOrgInformation(result.get(), request);
+            YouthOrg youthOrg = youthOrgAttributeSetter.setAttributes(request);
             model.addAttribute("youthOrg", youthOrg);
             YouthOrg saveResult = youthOrgRepository.save(youthOrg);
             model.addAttribute("success", youthOrg.equals(saveResult));
