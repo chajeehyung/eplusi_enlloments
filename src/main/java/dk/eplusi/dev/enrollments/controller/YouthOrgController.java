@@ -56,8 +56,8 @@ public class YouthOrgController {
         youthOrg.setRoleType(roleTypeRepository.getOne(Integer.valueOf(request.getParameter("roleCode"))));
         youthOrg.setOrganization(organizationRepository.getOne(Integer.valueOf(request.getParameter("orgCode"))));
         //FIXME 날짜가 1일씩 앞당겨지는듯
-        youthOrg.setStartDate(DateUtility.getThisYear());
-        youthOrg.setEndDate(DateUtility.getNextYear());
+//        youthOrg.setStartDate(DateUtility.getThisYear());
+//        youthOrg.setEndDate(DateUtility.getNextYear());
 
         return youthOrg;
     }
@@ -125,7 +125,7 @@ public class YouthOrgController {
     @PostMapping(value = "youthOrgInsert")
     public String youthOrgInsertPost(Model model) throws Exception {
         model.addAttribute("roleTypeList", roleTypeRepository.findAll());
-        model.addAttribute("orgList", organizationRepository.findByAppliedYearBetween(DateUtility.getThisYear(), DateUtility.getNextYear()));
+        model.addAttribute("orgList", organizationRepository.findByAppliedYearBetween(DateUtility.getThisYear(), DateUtility.getThisYear()+1));
         return "youthOrg/youthOrgInsert";
     }
 
