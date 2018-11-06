@@ -1,0 +1,125 @@
+<!--
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta http-equiv="refresh" content="0;url=/youthSearch"/>
+</head>
+</html>-->
+<!DOCTYPE html>
+<html lang="kr" data-layout-decorate="~{fragments/layout}">
+<head>
+    <title>Home</title>
+</head>
+<body>
+<!-- page content -->
+<div class="right_col" role="main" data-layout-fragment="content">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>순원 정보현황 관리 <small>(정지영 순)</small></h3>
+            </div>
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+              <button class="btn btn-default" type="button">Go!</button>
+            </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>순원 정보현황 상세</h2>
+                        <!--<ul class="nav navbar-right panel_toolbox">-->
+                            <!--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>-->
+                            <!--</li>-->
+                            <!--<li class="dropdown">-->
+                                <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"-->
+                                   <!--aria-expanded="false"><i class="fa fa-wrench"></i></a>-->
+                                <!--<ul class="dropdown-menu" role="menu">-->
+                                    <!--<li><a href="#">Settings 1</a>-->
+                                    <!--</li>-->
+                                    <!--<li><a href="#">Settings 2</a>-->
+                                    <!--</li>-->
+                                <!--</ul>-->
+                            <!--</li>-->
+                            <!--<li><a class="close-link"><i class="fa fa-close"></i></a>-->
+                            <!--</li>-->
+                        <!--</ul>-->
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>NO.</th>
+                                <th>순원</th>
+                                <th>또래</th>
+                                <th>생년월일</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td class=" "><a data-th-href="@{/cellMemberStatusDetail}">정지영</a></td>
+                                <td class=" ">05</td>
+                                <td class=" last">1986-06-12</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td class=" "><a href="#">차지형</a></td>
+                                <td class=" ">06</td>
+                                <td class=" last">1987-05-28</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td class=" "><a href="#">이지혜</a></td>
+                                <td class=" ">06</td>
+                                <td class=" last">1987-05-12</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">4</th>
+                                <td class=" "><a href="#">손숙진</a></td>
+                                <td class=" ">06</td>
+                                <td class=" last">1987-06-12</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">5</th>
+                                <td class=" "><a href="#">윤미</a></td>
+                                <td class=" ">06</td>
+                                <td class=" last">1987-06-12</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">6</th>
+                                <td class=" "><a href="#">김병영</a></td>
+                                <td class=" ">11</td>
+                                <td class=" last">1992-06-12</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">7</th>
+                                <td class=" "><a href="#">이단비</a></td>
+                                <td class=" ">11</td>
+                                <td class=" last">1992-06-12</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">8</th>
+                                <td class=" "><a href="#">하경진</a></td>
+                                <td class=" ">06</td>
+                                <td class=" last">1992-11-12</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->
+</body>
+</html>

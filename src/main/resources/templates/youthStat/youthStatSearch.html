@@ -1,0 +1,181 @@
+<!--
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta http-equiv="refresh" content="0;url=/youthSearch"/>
+</head>
+</html>-->
+<!DOCTYPE html>
+<html lang="kr" data-layout-decorate="~{fragments/layout}">
+<head>
+    <title>Home</title>
+</head>
+<body>
+<!-- page content -->
+<div class="right_col" role="main" data-layout-fragment="content">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>청년부 현황 정보 조회</h3>
+            </div>
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>청년부 현황 정보 목록</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Settings 1</a>
+                                    </li>
+                                    <li><a href="#">Settings 2</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <!--<p>※ 검색 조건을 선택 후 검색해 주세요 </p>-->
+                        <div class="dataTables_wrapper">
+                            <div class="row navbar">
+                                <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+                                    <select class="form-control">
+                                        <option value="">1 청년</option>
+                                        <option value="press">2 청년</option>
+                                        <option value="net">3 청년</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+                                    <select class="form-control" >
+                                        <option value="">동아리 마을</option>
+                                        <option value="press">봉봉 마을</option>
+                                        <option value="net">빛진 마을</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+                                    <select class="form-control" >
+                                        <option value="">정지영 순</option>
+                                        <option value="press">김문화 순</option>
+                                        <option value="net">서대원 순</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-1 col-sm-12 col-xs-12 form-group">
+                                    <button type="submit" class="btn btn-primary" style="width: 100%">검색</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table id="datatable" class="table table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th style="text-align: center">소속 청년</th>
+                                    <th style="text-align: center">소속 마을</th>
+                                    <th style="text-align: center">소속 순</th>
+                                    <th style="text-align: center">이름</th>
+                                    <th style="text-align: center">또래</th>
+                                    <th style="text-align: center">출석여부</th>
+                                    <th style="text-align: center">최근 3개월 출석율</th>
+                                    <th style="text-align: center">교회 등록 일자</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>2청년</td>
+                                    <td>봉봉 마을</td>
+                                    <td>정지영 순</td>
+                                    <td><a data-th-href="@{/youthStatDetail}">차지형</a></td>
+                                    <td>06</td>
+                                    <td>출석</td>
+                                    <td>80%</td>
+                                    <td>2018-06</td>
+                                </tr>
+                                <tr>
+                                    <td>3청년</td>
+                                    <td>동아리 마을</td>
+                                    <td>정지영 순</td>
+                                    <td><a href="#">김병영</a></td>
+                                    <td>11</td>
+                                    <td>출석</td>
+                                    <td>80%</td>
+                                    <td>2018-03</td>
+                                </tr>
+                                <tr>
+                                    <td>3청년</td>
+                                    <td>동아리 마을</td>
+                                    <td>정지영 순</td>
+                                    <td><a href="#">이단비</a></td>
+                                    <td>11</td>
+                                    <td>출석</td>
+                                    <td>80%</td>
+                                    <td>2010-01</td>
+                                </tr>
+                                <tr>
+                                    <td>3청년</td>
+                                    <td>빛진 마을</td>
+                                    <td>정지영 순</td>
+                                    <td><a href="#">조인겸</a></td>
+                                    <td>11</td>
+                                    <td>출석</td>
+                                    <td>95%</td>
+                                    <td>2010-01</td>
+                                </tr>
+                                <tr>
+                                    <td>2청년</td>
+                                    <td>봉봉 마을</td>
+                                    <td>정지영 순</td>
+                                    <td><a href="#">이영광</a></td>
+                                    <td>04</td>
+                                    <td>출석</td>
+                                    <td>75%</td>
+                                    <td>2010-01</td>
+                                </tr>
+                                <tr>
+                                    <td>2청년</td>
+                                    <td>봉봉 마을</td>
+                                    <td>김문화 순</td>
+                                    <td><a href="#">허유정</a></td>
+                                    <td>07</td>
+                                    <td>출석</td>
+                                    <td>60%</td>
+                                    <td>2010-01</td>
+                                </tr>
+                                <tr>
+                                    <td>2청년</td>
+                                    <td>봉봉 마을</td>
+                                    <td>김문화 순</td>
+                                    <td><a href="#">정명재</a></td>
+                                    <td>08</td>
+                                    <td>출석</td>
+                                    <td>100%</td>
+                                    <td>2010-01</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->
+</body>
+</html>

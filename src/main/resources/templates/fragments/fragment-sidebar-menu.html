@@ -1,0 +1,55 @@
+<div id="sidebar-menu" class="main_menu_side hidden-print main_menu" data-th-fragment="sidebar-menu">
+    <div class="menu_section">
+        <h3>청년부 현황</h3>
+        <ul class="nav side-menu">
+            <li><a><i class="fa fa-windows"></i> 청년부 현황 정보 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a data-th-href="@{/youthStatSearch}">청년부 현황 정보 조회</a></li>
+                    <li><a data-th-href="@{/youthStatAttendSearch}">청년부 출석 현황 조회</a></li>
+                </ul>
+            </li>
+            <li><a><i class="fa fa-sitemap"></i> 청년부 순모임 정보 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a data-th-href="@{/youthCellStatSearch}">청년부 순모임 정보 조회</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="menu_section">
+        <h3>순별 현황</h3>
+        <ul class="nav side-menu">
+            <li><a><i class="fa fa-windows"></i> 순원 정보 현황 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a data-th-href="@{/cellMemberStatus}">순원정보 현황 관리</a></li>
+                    <li><a data-th-href="@{/cellMemberAttendSearch}">순원출석 현황 조회</a></li>
+                    <li><a data-th-href="@{/cellMemberAttendInsert}">순원출석 현황 입력</a></li>
+                </ul>
+            </li>
+            <li><a><i class="fa fa-sitemap"></i> 순모임 보고서 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a data-th-href="@{/cellReportSearch}">순모임 보고서 조회</a>
+                    <li><a data-th-href="@{/cellReportInsert}">순모임 보고서 작성</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="menu_section">
+        <h3> 청년부 기본정보 관리 </h3>
+        <ul class="nav side-menu">
+            <li><a><i class="fa fa-edit"></i> 청년 정보 관리 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a data-th-href="@{/youthSearch}">청년 정보 조회</a></li>
+                    <li><a data-th-href="@{/youthInsert}">청년 정보 추가</a></li>
+                </ul>
+            </li>
+            <li><a><i class="fa fa-table"></i> 청년 소속 정보 관리 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a data-th-href="@{/youthOrgSearch}">청년 소속 정보 조회</a></li>
+                    <li><a data-th-href="@{/youthOrgInsert}">청년 소속 정보 추가</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

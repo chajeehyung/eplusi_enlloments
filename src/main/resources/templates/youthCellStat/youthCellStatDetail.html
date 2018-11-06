@@ -1,0 +1,200 @@
+<!--
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta http-equiv="refresh" content="0;url=/youthSearch"/>
+</head>
+</html>-->
+<!DOCTYPE html>
+<html lang="kr" data-layout-decorate="~{fragments/layout}">
+<head>
+    <title>Home</title>
+</head>
+<body>
+<!-- page content -->
+<div class="right_col" role="main" data-layout-fragment="content">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>정지영순 정보 상세 <small>2018-10-07</small></h3>
+            </div>
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>순원별 정보 상세</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Settings 1</a>
+                                    </li>
+                                    <li><a href="#">Settings 2</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th style="width: 5%">NO.</th>
+                                <th style="width: 10%;">순원</th>
+                                <th style="width: 10%">출석</th>
+                                <th style="width: 10%">결석사유</th>
+                                <th style="width: 65%">기도제목</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>(05)정지영</td>
+                                <td>예배/순모임</td>
+                                <td></td>
+                                <td>1. 정직한 영을 새롭게 하소서
+                                    2. 가정 안에서 그리스도의 삶을 살아낼 수 있도록 (가족구원)
+                                    3. 믿음의 가정 이룰 수 있도록, 그리고 그에 합당한 준비가 되도록
+                                    4. 하나님께서 내게 주신 달란트를 삶의 예배 속에서 어떻게 사용할지 고민하고 실천할 수 있도록</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>(06)차지형</td>
+                                <td>예배만</td>
+                                <td>출근</td>
+                                <td>체력과 건강</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>(06)김현중</td>
+                                <td>순모임만</td>
+                                <td>출장</td>
+                                <td>삶속에 어떠한 상황이 오든 냉정하게 현명한 선택을 할수있도록</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">4</th>
+                                <td>(06)이지혜</td>
+                                <td>예배/순모임</td>
+                                <td></td>
+                                <td>1. 하나님이 주시는 마음에 평안함이 있길
+                                    2. 준비하는 시험(시공기술사) 지치지 않고 최선을 다해 준비할수 있도록
+                                    3. 만남의 축복이 있길(배우자)</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">5</th>
+                                <td>(06)손숙진</td>
+                                <td>예배/순모임</td>
+                                <td></td>
+                                <td>1. 미래에 대해 불안해하지 않도록
+                                    2. 가족과 나의 건강
+                                    3. 배우자</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">6</th>
+                                <td>(11)이단비</td>
+                                <td>예배/순모임</td>
+                                <td></td>
+                                <td>1. 가족의건강
+                                    2. 직장생활가운데 무기력해지지 않고 또 스스로 발전할수있도록
+                                    3. 새 마음 주셔서 하나님과 친밀한 교제가 있기를</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">7</th>
+                                <td>(06)윤미</td>
+                                <td>예배만</td>
+                                <td>결혼식 참여</td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>순모임 보고서 상세</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Settings 1</a>
+                                    </li>
+                                    <li><a href="#">Settings 2</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12"> 목사님/대표순장님께 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-10 col-sm-10 col-xs-12">
+                                    <textarea class="form-control" rows="3" readonly>(06)김현중 경기 중 선수와 소통이 잘못되어 선수가 찬 공에 얼굴 왼쪽을 맞았데요 입술 안쪽이랑 입안이 다 터지고 눈이 잠깐 하얗게 보이고 그 후에 숙소로 선수들 태우고 차 몰고 갔다는데 그게 기억이 나지 않는데요 기억 돌아오고 의무팀에서 진료받으니 뇌진탕이라고 하고 지켜보자고 해서 경과를 보고 있어요 오늘 저녁에 서울 와서 내일까지 쉰데요 그래서 상태 안좋아지면 응급실이라도 갈 생각이 있더라고요 걸을 때 좀 뒤뚱거리는 증상, 머리 어지러움증이 있어 회복위해 기도해주시길 요청드립니다</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">순모임 장소, 시간, 분위기 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-10 col-sm-10 col-xs-12">
+                                    <textarea class="form-control" rows="3" readonly>식당, 오후 5시 30분, 삶 나눔과 설교 듣고 느낀 바, GBS 진행하였습니다</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">순 특별 기도제목 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-10 col-sm-10 col-xs-12">
+                                    <textarea class="form-control" rows="3" readonly>영육의 건강함, 각자의 자리에서 긍정적이고 편안한 마음 가지도록</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">[선택] 특이사항 (경조사 / 출타자 등) <span class="required">*</span>
+                                </label>
+                                <div class="col-md-10 col-sm-10 col-xs-12">
+                                    <textarea class="form-control" rows="3" readonly>(06)윤미 자매 포항으로 여행가서 불참하였습니다.</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">순모임 요약 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-10 col-sm-10 col-xs-12">
+                                    <textarea class="form-control" rows="3" readonly></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->
+</body>
+</html>

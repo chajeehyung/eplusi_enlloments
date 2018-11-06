@@ -12,7 +12,6 @@ import java.util.Date;
 import java.util.List;
 
 public interface YouthOrgRepository extends JpaRepository<YouthOrg, Integer> {
-    // 페이징 제거로 인한 페이징에서 리스트형으로 변경
-    List<YouthOrg> findByYouth(Youth youth);
+    Page<YouthOrg> findByYouth(Youth youth, Pageable pageable);
     List<YouthOrg> findByYouthAndOrganizationAndRoleTypeAndStartDateAndEndDate(Youth youth, Organization organization, RoleType roleType, Date startDate, Date endDate);
 }

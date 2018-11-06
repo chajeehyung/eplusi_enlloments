@@ -1,0 +1,244 @@
+<!--
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta http-equiv="refresh" content="0;url=/youthSearch"/>
+</head>
+</html>-->
+<!DOCTYPE html>
+<html lang="kr" data-layout-decorate="~{fragments/layout}">
+<head>
+    <title>Home</title>
+</head>
+<body>
+<!-- page content -->
+<div class="right_col" role="main" data-layout-fragment="content">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>순원 정보 현황 상세 <small>(정지영 순)</small></h3>
+            </div>
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>순원 정보 현황 상세</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Settings 1</a>
+                                    </li>
+                                    <li><a href="#">Settings 2</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">청년이름
+                                </label>
+                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <input type="text" required="required" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">청년또래
+                                </label>
+                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <select class="form-control" required>
+                                        <option value="">Choose..</option>
+                                        <option value="press">Press</option>
+                                        <option value="net">Internet</option>
+                                        <option value="mouth">Word of mouth</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">성별
+                                </label>
+                                <div class="col-md- col-sm-6 col-xs-12">
+                                    <!--<textarea class="form-control" rows="3"></textarea>-->
+                                    <label class="radio-inline">
+                                        <input type="radio" name="gender" value="M" checked>남
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="gender" value="F">여
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">핸드폰 번호
+                                </label>
+                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <input type="text" required="required" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">생년월일
+                                </label>
+                                <div class="col-md-3 col-sm-10 col-xs-12">
+                                    <div class='input-group date' id='myDatepicker'>
+                                        <input type='text' class="form-control" />
+                                        <span class="input-group-addon">
+                                           <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">자택주소
+                                </label>
+                                <div class="col-md-4 col-sm-4 col-xs-12">
+                                    <input type="text" required="required" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">모태신앙여부
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="gender" value="Y" checked>예
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="gender" value="N">아니오
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">자진등록여부
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="gender" value="Y" checked>예
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="gender" value="N">아니오
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">인도자 성명
+                                </label>
+                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <input type="text" required="required" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">직업상태
+                                </label>
+                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <select class="form-control" required>
+                                        <option value="">Choose..</option>
+                                        <option value="press">Press</option>
+                                        <option value="net">Internet</option>
+                                        <option value="mouth">Word of mouth</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">직업
+                                </label>
+                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <select class="form-control" required>
+                                        <option value="">Choose..</option>
+                                        <option value="press">Press</option>
+                                        <option value="net">Internet</option>
+                                        <option value="mouth">Word of mouth</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">직군
+                                </label>
+                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <select class="form-control" required>
+                                        <option value="">Choose..</option>
+                                        <option value="press">Press</option>
+                                        <option value="net">Internet</option>
+                                        <option value="mouth">Word of mouth</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">신급
+                                </label>
+                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <select class="form-control" required>
+                                        <option value="">Choose..</option>
+                                        <option value="press">Press</option>
+                                        <option value="net">Internet</option>
+                                        <option value="mouth">Word of mouth</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">교회 등록일자
+                                </label>
+                                <div class="col-md-3 col-sm-10 col-xs-12">
+                                    <div class='input-group date' id='myDatepicker2'>
+                                        <input type='text' class="form-control" />
+                                        <span class="input-group-addon">
+                                           <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">출석상태
+                                </label>
+                                <div class="col-md-10 col-sm-10 col-xs-12">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="gender" value="Y" checked>예
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="gender" value="N">아니오
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">등록여부
+                                </label>
+                                <div class="col-md-10 col-sm-10 col-xs-12">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="gender" value="Y" checked>예
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="gender" value="N">아니오
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="ln_solid"></div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success">수정</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->
+</body>
+</html>

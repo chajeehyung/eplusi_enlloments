@@ -1,0 +1,196 @@
+<!--
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta http-equiv="refresh" content="0;url=/youthSearch"/>
+</head>
+</html>-->
+<!DOCTYPE html>
+<html lang="kr" data-layout-decorate="~{fragments/layout}">
+<head>
+    <title>Home</title>
+</head>
+<body>
+<!-- page content -->
+<div class="right_col" role="main" data-layout-fragment="content">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>순모임보고서 작성 <small>(정지영 순)</small></h3>
+            </div>
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>순원별 기도제목</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Settings 1</a>
+                                    </li>
+                                    <li><a href="#">Settings 2</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="dataTables_wrapper">
+                            <div class="row navbar">
+                                <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+                                    <select class="form-control">
+                                        <option value="">2018-10-07</option>
+                                        <option value="press">2018-10-14</option>
+                                        <option value="net">2018-10-21</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th style="width: 30%;">순원</th>
+                                <th style="width: 70%">기도제목</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>(05)정지영</td>
+                                <td>
+                                    <input style="width: 100%;">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>(06)차지형</td>
+                                <td>
+                                    <input style="width: 100%;">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>(06)김현중</td>
+                                <td>
+                                    <input style="width: 100%;">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>(06)이지혜</td>
+                                <td>
+                                    <input style="width: 100%;">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>(06)손숙진</td>
+                                <td>
+                                    <input style="width: 100%;">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>(11)이단비</td>
+                                <td>
+                                    <input style="width: 100%;">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>(06)윤미</td>
+                                <td>
+                                    <input style="width: 100%;">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>순모임 보고서</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Settings 1</a>
+                                    </li>
+                                    <li><a href="#">Settings 2</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12"> 목사님/대표순장님께 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-10 col-sm-10 col-xs-12">
+                                    <textarea class="form-control" rows="3">(06)김현중 경기 중 선수와 소통이 잘못되어 선수가 찬 공에 얼굴 왼쪽을 맞았데요 입술 안쪽이랑 입안이 다 터지고 눈이 잠깐 하얗게 보이고 그 후에 숙소로 선수들 태우고 차 몰고 갔다는데 그게 기억이 나지 않는데요 기억 돌아오고 의무팀에서 진료받으니 뇌진탕이라고 하고 지켜보자고 해서 경과를 보고 있어요 오늘 저녁에 서울 와서 내일까지 쉰데요 그래서 상태 안좋아지면 응급실이라도 갈 생각이 있더라고요 걸을 때 좀 뒤뚱거리는 증상, 머리 어지러움증이 있어 회복위해 기도해주시길 요청드립니다</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">순모임 장소, 시간, 분위기 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-10 col-sm-10 col-xs-12">
+                                    <textarea class="form-control" rows="3">식당, 오후 5시 30분, 삶 나눔과 설교 듣고 느낀 바, GBS 진행하였습니다</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">순 특별 기도제목 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-10 col-sm-10 col-xs-12">
+                                    <textarea class="form-control" rows="3">영육의 건강함, 각자의 자리에서 긍정적이고 편안한 마음 가지도록</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">[선택] 특이사항 (경조사 / 출타자 등) <span class="required">*</span>
+                                </label>
+                                <div class="col-md-10 col-sm-10 col-xs-12">
+                                    <textarea class="form-control" rows="3">(06)윤미 자매 포항으로 여행가서 불참하였습니다.</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">순모임 요약 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-10 col-sm-10 col-xs-12">
+                                    <textarea class="form-control" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <div class="ln_solid"></div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success">저장</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->
+</body>
+</html>

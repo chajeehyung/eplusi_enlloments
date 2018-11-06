@@ -1,0 +1,135 @@
+<!--
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta http-equiv="refresh" content="0;url=/youthSearch"/>
+</head>
+</html>-->
+<!DOCTYPE html>
+<html lang="kr" data-layout-decorate="~{fragments/layout}">
+<head>
+    <title>Home</title>
+</head>
+<body>
+<!-- page content -->
+<div class="right_col" role="main" data-layout-fragment="content">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>순원 출석현황 관리 <small>(정지영 순)</small></h3>
+            </div>
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+              <button class="btn btn-default" type="button">Go!</button>
+            </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>순원 출석현황 상세</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Settings 1</a>
+                                    </li>
+                                    <li><a href="#">Settings 2</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="dataTables_wrapper">
+                            <div class="row navbar">
+                                <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+                                    <select class="form-control">
+                                        <option value="">2018-10-07</option>
+                                        <option value="press">2018-10-14</option>
+                                        <option value="net">2018-10-21</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-1 col-sm-12 col-xs-12 form-group">
+                                    <button type="submit" class="btn btn-primary" style="width: 100%">검색</button>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th style="width: 20%;">순원</th>
+                                <th style="width: 40%;">출석</th>
+                                <th style="width: 40%;">결석사유</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class=" ">정지영</td>
+                                <td class=" ">예배/순모임</td>
+                                <td class=" last" ></td>
+                            </tr>
+                            <tr>
+                                <td class=" ">차지형</td>
+                                <td class=" ">예배</td>
+                                <td class=" last">출근</td>
+                            </tr>
+                            <tr>
+                                <td class=" ">이지혜</td>
+                                <td class=" ">예배/순모임</td>
+                                <td class=" last"></td>
+                            </tr>
+                            <tr>
+                                <td class=" ">손숙진</td>
+                                <td class=" ">예배</td>
+                                <td class=" last">결혼식 참여</td>
+                            </tr>
+                            <tr>
+                                <td class=" ">윤미</td>
+                                <td class=" ">순모임</td>
+                                <td class=" last"></td>
+                            </tr>
+                            <tr>
+                                <td class=" ">김병영</td>
+                                <td class=" ">결석</td>
+                                <td class=" last">해외여행</td>
+                            </tr>
+                            <tr>
+                                <td class=" ">이단비</td>
+                                <td class=" ">예배/순모임</td>
+                                <td class=" last"></td>
+                            </tr>
+                            <tr>
+                                <td class=" ">하경진</td>
+                                <td class=" ">예배/순모임</td>
+                                <td class=" last"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-success"><a data-th-href="@{/cellMemberAttendInsert}">입력</a></button>
+                            <button type="button" class="btn btn-success"><a data-th-href="@{/cellMemberAttendIModify}">수정</a></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->
+</body>
+</html>
